@@ -4,6 +4,7 @@ const initialState = {
   loggedInUserRole: null,
   loggedinUserEmail: null,
   loggedinUserId: null,
+  loggedInUserAddress: null,
 };
 export const AuthSlice = createSlice({
   name: "Authentication",
@@ -13,6 +14,7 @@ export const AuthSlice = createSlice({
       state.isAuth = true;
       state.loggedinUserEmail = action.payload.email;
       state.loggedinUserId = action.payload.id;
+       state.loggedInUserAddress = action.payload.address;
     },
     selectRole: (state, action) => {
       state.loggedInUserRole = action.payload;
@@ -23,8 +25,15 @@ export const AuthSlice = createSlice({
       state.loggedinUserEmail = null;
       state.loggedinUserId = null;
     },
+    selectAddress: (state, action) => {
+       state.loggedInUserAddress = action.payload;
+    },
   },
 });
-export const { addAuthentication, selectRole, removeAuthentication } =
-  AuthSlice.actions;
+export const {
+  addAuthentication,
+  selectRole,
+  removeAuthentication,
+  selectAddress,
+} = AuthSlice.actions;
 export default AuthSlice.reducer;

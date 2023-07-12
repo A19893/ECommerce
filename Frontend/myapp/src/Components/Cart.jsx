@@ -1,6 +1,8 @@
 import React, { useEffect,useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getCartItems } from '../Services/getCartItems.service';
+import NoItem from './NoItem';
+import PresentItem from './PresentItem';
 const Cart = () => {
     const userId=useSelector((state)=>state.authentication.loggedinUserId);
     const[products,setProducts]=useState([]);
@@ -17,8 +19,8 @@ const Cart = () => {
     {console.log(products)}
      {
         products?.length>0?
-        ""
-        :""
+        <PresentItem products={products}/>
+        :<NoItem/>
      }
     </>
   )

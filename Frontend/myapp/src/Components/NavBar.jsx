@@ -11,10 +11,10 @@ const NavBar = (props) => {
   const { Search } = Input;
   const onSearch = (value) => console.log(value);
   const onChange = (value) => {
-    console.log(`selected ${value}`);
+    props.setCategory(value)
   };
   const onSearchCategory = (value) => {
-    console.log('search:', value);
+    props.setCategory(value)
   };
   const logout=()=>{
    dispatch(removeAuthentication());

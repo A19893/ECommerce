@@ -16,17 +16,21 @@ const Products = (props) => {
   const selectProduct = (id) => {
     navigate("/specific",{state:id})
   };
+  console.log("category",props.category);
   return (
     <>
       <div className="prodHeader">Featured Products</div>
       <div className="productContainer">
         {products?.map((item, idx) => {
-          if(item.name.toLowerCase().includes(props.searchItem.toLowerCase()))
+          if(item.name.toLowerCase().includes(props.searchItem.toLowerCase())){
+         if(props.category!='not selected'){
+          if(item.category.toLowerCase()===props.category.toLowerCase())
           return (
             <>
               <div
                 className="specificProd"
                 onClick={() => selectProduct(item._id)}
+                key={idx}
               >
                 <div className="prodImg">
                   <img src={Product} alt="Missing" />
@@ -38,6 +42,27 @@ const Products = (props) => {
               </div>
             </>
           );
+         }
+         else{
+          return (
+            <>
+              <div
+                className="specificProd"
+                onClick={() => selectProduct(item._id)}
+                key={idx}
+              >
+                <div className="prodImg">
+                  <img src={Product} alt="Missing" />
+                </div>
+                  <div>{item.name}</div>
+                  <div>&#x20B9;{item.price}</div>
+                  <div><Rate allowHalf disabled defaultValue={item.ratings} /></div>
+                  <div>({item.ReviewsCount} Reviews)</div>
+              </div>
+            </>
+          );
+         }
+          }
         })}
       </div>
     </>

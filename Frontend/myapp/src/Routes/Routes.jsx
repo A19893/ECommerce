@@ -7,6 +7,8 @@ import Role from '../Components/Role'
 import UploadProducts from '../Components/UploadProducts'
 import SpecificProduct from '../Components/SpecificProduct'
 import Cart from '../Components/Cart'
+import Address from '../Components/Address'
+import BuyNow from '../Components/BuyNow'
 export const publicRoutes=[
  {
     path:"/",
@@ -49,6 +51,14 @@ export const privateRoutes=[
     {
       path:"/cart",
       element:<Cart/>
+    },
+    {
+      path:"/address",
+      element:<Address/>
+    },
+    {
+      path:"/buy",
+      element:<BuyNow/>
     },
     {
       path:"/*",

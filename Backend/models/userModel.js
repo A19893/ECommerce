@@ -41,6 +41,10 @@ const userSchema=new mongoose.Schema({
     joiningTime:{
         type:String,
         default:date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
+    },
+    address:{
+        type:String,
+        default:'Address'
     }
 })
 module.exports=mongoose.model("Users",userSchema)
