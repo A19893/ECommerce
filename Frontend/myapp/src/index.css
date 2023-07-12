@@ -1,0 +1,401 @@
+body {
+  margin: 0;
+  padding:0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.container{
+  background-color: rgb(103, 153, 202);
+  height:100vh;
+  width:100%;
+   display: grid;
+  margin:auto;
+}
+.signupContainer{
+  width:1400px;
+  height:800px;
+  background-color: white;
+  display: grid;
+  margin:auto;
+  margin-top: 70px;
+  border-radius: 25px;
+  display: flex;
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
+.signupimgContainer{
+  height:800px;
+  width:650px;
+}
+.signupimgContainer img{
+  height:800px;
+  width:650px;
+  object-fit: fill;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.signupContent{
+height:800px;
+width:750px;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+}
+.welcome{
+  display: inline-block;
+  color:rgb(23, 74, 132);
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  margin:auto;
+  margin-top: 30px;
+  display: table;
+  font-size: 50px;
+}
+.shipment{
+  display: inline-block;
+  color:rgb(23, 74, 132);
+  font-style: italic;
+  font-weight: bold;
+  margin:auto;
+  display: table;
+  font-size: 25px;
+}
+.signup-form{
+  height:600px;
+  width:700px;
+  display: grid;
+  margin: auto;
+  margin-top: 25px;
+}
+.username-form{
+display: grid;
+margin: auto;
+}
+.username-form ::placeholder{
+  color:black;
+}
+.signupbtn{
+  display: table;
+  margin: auto;
+  width:50px
+}
+.signingoogle{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.navLogin{
+  display: table;
+  margin: auto;
+}
+a:-webkit-any-link{
+  color:rgb(23, 74, 132);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+}
+.logincontainer{
+  background-color: rgb(205, 107, 206);
+  height:100vh;
+  width:100vw;
+   display: grid;
+  margin:auto;
+}
+.loginContent{
+ height:800px;
+width:750px;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+}
+.loginwelcome{
+  display: inline-block;
+  color:rgb(157, 50, 176);
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  margin:auto;
+  margin-top: 30px;
+  display: table;
+  font-size: 50px;
+}
+.loginshipment{
+  display: inline-block;
+  color:rgb(157, 50, 176);
+  font-style: italic;
+  font-weight: bold;
+  margin:auto;
+  display: table;
+  font-size: 25px;
+}
+.logingoogle{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 80px;
+}
+.navbar{
+  width:100%;
+  background-color:rgb(40, 116, 240);
+  height:100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#slider{
+  width:100%;
+  margin:0;
+  padding:0;
+}
+#slider div div div div{
+  background-size: 100% 500PX !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin:0;
+  padding:0;
+}
+.logo{
+  margin-top:30px;
+  margin-left:150px;
+  padding-top: 10px;
+  padding-left: 5px;
+  height:70px;
+  width:100px;
+  box-sizing: border-box;
+  font-size: larger;
+}
+.logo img{
+  max-width: 100%;
+  height:auto;
+}
+.searchBar{
+  margin-top:25px;
+  margin-left: 60px;
+  width:500px;
+}
+.ant-input{
+  width:350px;
+}
+:where(.css-dev-only-do-not-override-14wwjjs)[class^="ant-input"], :where(.css-dev-only-do-not-override-14wwjjs)[class*=" ant-input"] ::placeholder{
+  color:black;
+}
+.logoutButton{
+margin-top: 30px;
+width:120px;
+margin-left: 40px;
+}
+.profile{
+  margin-top: 30px;
+  width:100px;
+  margin-left: 50px;
+}
+.cart{
+  margin-top: 30px;
+  width:100px;
+  margin-left: 50px;
+}
+.myOrders{
+  margin-top: 30px;
+  width:100px;
+  margin-left: 50px;
+}
+.category{
+  margin-top: 60px;
+  width:100px;
+  margin-left: 50px; 
+  height:100px;
+}
+.ant-select-single{
+  color:black;
+  cursor: pointer;
+  /* height:60px; */
+  padding:15px;
+}
+.ant-select{
+  /* height:60px; */
+  color:black;
+  cursor: pointer;
+}
+.ant-select ::placeholder{
+  color:black;
+}
+.uploadProd{
+position: fixed;
+bottom:0;
+right:0;
+cursor: pointer;
+margin-right: 40px;
+margin-bottom: 20px;
+}
+.MuiIcon-root{
+cursor: pointer;
+}
+.bestProd{
+  padding:0;
+  margin:0;
+  width:100%;
+  height:400px;
+}
+.productContainer{
+  width:100%;
+  height:700px;
+  display: flex;
+  flex-wrap: wrap;
+  gap:30px;
+  justify-content: space-evenly;
+}
+.specificProd{
+  height:400px;
+  width:300px;
+  margin-left: 15px;
+  margin-right: 15px;
+  cursor:pointer;
+  display: flex;
+  flex-direction: column;
+}
+.specificProd:hover{
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.prodImg{
+  height:300px;
+}
+.prodImg img{
+  width:100%;
+  height:100%;
+}
+.prodDesc{
+  /* flex-direction: column; */
+  display: block;
+}
+.prodHeader{
+  display: table;
+  margin: auto;
+  text-decoration: underline;
+  margin-bottom: 40px;
+  font-size: 35px;
+  font-weight: 600;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.ProductDetails {
+  background-color: rgb(255, 255, 255);
+  width: 100vw;
+  max-width: 100%;
+  padding: 6vmax;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.ProductDetails > div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2vmax;
+  box-sizing: border-box;
+  border: 1px solid white;
+}
+.ProductDetails > div:last-child {
+  align-items: flex-start;
+}
+
+.CarouselImage {
+  width: 20vmax;
+}
+.detailsBlock-1 > h2 {
+  color: rgb(54, 54, 54);
+  font: 600 1.6vmax "Roboto";
+}
+
+.detailsBlock-1 > p {
+  color: rgba(54, 54, 54, 0.582);
+  font: 200 0.6vmax cursive;
+}
+
+.detailsBlock-2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.205);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+  width: 70%;
+  padding: 1vmax 0;
+}
+
+.detailsBlock-2-span {
+  font: 200 0.8vmax cursive;
+  color: rgba(0, 0, 0, 0.699);
+}
+
+.detailsBlock-3 {
+  width: 70%;
+}
+
+.detailsBlock-3 > h1 {
+  color: rgba(17, 17, 17, 0.795);
+  font: 400 1.8vmax "Franklin Gothic Medium";
+  margin: 1vmax 0;
+}
+.detailsBlock-3-1 {
+  display: flex;
+  align-items: center;
+}
+
+.detailsBlock-3-1-1 > button {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.616);
+  padding: 0.5vmax;
+  cursor: pointer;
+  color: white;
+  transition: all 0.5s;
+}
+.detailsBlock-3-1-1 > button:hover {
+  background-color: rgba(0, 0, 0, 0.767);
+}
+
+.detailsBlock-3-1-1 > input {
+  border: none;
+  padding: 0.5vmax;
+  width: 50px;
+  text-align: center;
+  outline: none;
+  font: 400 0.8vmax "Roboto";
+  color: rgba(0, 0, 0, 0.74);
+}
+
+.detailsBlock-3-1 > button:last-child {
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: all 0.5s;
+  background-color: tomato;
+  font: 500 0.7vmax "Roboto";
+  border-radius: 20px;
+  padding: 0.5vmax 2vmax;
+  margin: 1vmax;
+  outline: none;
+}
+
+.detailsBlock-3-1 > button:last-child:hover {
+  background-color: rgb(214, 84, 61);
+}
+
+.detailsBlock-3 > p {
+  border-top: 1px solid rgba(0, 0, 0, 0.205);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+  padding: 1vmax 0;
+  color: rgba(0, 0, 0, 0.651);
+  font: 400 1vmax "Roboto";
+  margin: 1vmax 0;
+}
+.redColor{
+  color: red;
+}
+.greenColor{
+  color:green;
+}
