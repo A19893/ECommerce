@@ -1,5 +1,5 @@
 const express=require("express");
-const { getAllProducts, createProduct, updateProduct, deleteProduct, getSpecificProduct, deleteSpecificProduct } = require("../controllers/product.controller");
+const { getAllProducts, createProduct, updateProduct, deleteProduct, getSpecificProduct, deleteSpecificProduct, uploadImage } = require("../controllers/product.controller");
 const router=express.Router();
 
 //Route for getting all Products
@@ -16,4 +16,7 @@ router.route("/deleteProduct/:id").post(deleteProduct);
 
 //Route for getting a speific product
 router.route("/specificProduct/:id").get(getSpecificProduct);
+
+//Route for uploading a product image
+// router.route("/uploads").post(uploadImage);
 module.exports=router;

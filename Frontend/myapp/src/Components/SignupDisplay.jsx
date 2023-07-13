@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Capture from "../Assets/Capture.PNG";
 import { UserOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
@@ -6,7 +6,24 @@ import { LockOutlined } from "@ant-design/icons";
 import { LoginOutlined, GoogleOutlined, PhoneFilled } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import {Link} from 'react-router-dom'
+import validator from 'validator'
+import "react-phone-number-input/style.css";
 const SignupDisplay = (props) => {
+  const [emailError, setEmailError] = useState('')
+  // Email Validation
+const validateEmail = (e) => {
+  var email = e.target.value
+
+  if (validator.isEmail(email)) {
+     setEmailError('Valid Email :)')
+  } else {
+     setEmailError('Enter valid Email!');
+  }
+}
+  const handleChange=(e)=>{
+    props.setEmail(e.target.value)
+    validateEmail(e)
+  }
   return (
     <div className="container">
       <div className="signupContainer">
@@ -14,7 +31,7 @@ const SignupDisplay = (props) => {
           <img src={Capture} alt="missing" />
         </div>
         <div className="signupContent">
-          <span className="welcome">Welcome to InstaShipin</span>
+          <span className="welcome">Welcome to InstaShopin</span>
           <span className="shipment">Shop Online Today</span>
           <div className="signup-form">
             <div className="username-form">
@@ -41,11 +58,28 @@ const SignupDisplay = (props) => {
                 }}
                 placeholder="    Email"
                 prefix={<MailOutlined />}
-                onChange={(e)=>props.setEmail(e.target.value)}
+                onChange={handleChange}
                 value={props.email}
               />
+              <span style={{ fontWeight: 'bold', color: 'red' }}>{emailError}</span>
               <br />
               <br />
+              <Input
+                size="large"
+                style={{
+                  width: "350px",
+                  boxShadow: " 0 10px 10px -5px rgba(0, 0, 0, 0.4)",
+                  padding: "15px",
+                }}
+                type="number"
+                placeholder="    Phone Number"
+                prefix={<PhoneFilled />}
+                onChange={props.handleInputChange}
+                value={props.number}
+              />
+              <span style={{ fontWeight: 'bold', color: 'red' }}>{props.numberError}</span>
+              <br/>
+              <br/>
               <Input
                 size="large"
                 style={{

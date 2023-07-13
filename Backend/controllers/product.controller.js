@@ -2,13 +2,13 @@ const Product=require("../models/productModel");
 const AsyncErrors=require("../middlewares/AsyncErrors")
 //Create Product
 exports.createProduct=AsyncErrors(async(req,res,next)=>{
-    console.log("files",req.files);
     console.log("data",req.body);
- const product=await Product.create(req.body);
- res.status(201).json({
-    success:true,
-    product
- });
+  const product=await Product.create(req.body);
+ res.send("");
+//  res.status(201).json({
+//     success:true,
+//     product
+//  });
 });
 //Get All Product
 exports.getAllProducts=AsyncErrors(async(req,res,next)=>{
@@ -62,3 +62,7 @@ exports.getSpecificProduct=AsyncErrors(async(req,res,next)=>{
         result
      })
 })
+//Upload a Product Image
+// exports.uploadImage=(upload.single('image'),(req,res)=>{
+// console.log(req.body)
+// })

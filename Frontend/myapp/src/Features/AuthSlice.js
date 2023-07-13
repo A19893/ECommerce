@@ -24,6 +24,7 @@ export const AuthSlice = createSlice({
       state.loggedInUserRole = null;
       state.loggedinUserEmail = null;
       state.loggedinUserId = null;
+      state.loggedInUserAddress=null;
     },
     selectAddress: (state, action) => {
        state.loggedInUserAddress = action.payload;

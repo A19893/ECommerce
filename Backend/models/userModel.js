@@ -45,6 +45,10 @@ const userSchema=new mongoose.Schema({
     address:{
         type:String,
         default:'Address'
+    },
+    number:{
+        type:String,
+        default:'Number'
     }
 })
 module.exports=mongoose.model("Users",userSchema)

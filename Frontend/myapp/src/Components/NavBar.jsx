@@ -43,7 +43,7 @@ const NavBar = (props) => {
       <Button icon={<LogoutOutlined />} style={{height:"40px",fontSize:"20px",fontWeight:"600"}} onClick={()=>logout()}>Logout</Button>
     </div>
    <div className='profile'>
-    <Button icon={<ProfileOutlined />} style={{height:"40px",fontSize:"20px",fontWeight:"600"}}>Profile</Button>
+    <Button icon={<ProfileOutlined />} style={{height:"40px",fontSize:"20px",fontWeight:"600"}} onClick={()=>navigate("/profile")}>Profile</Button>
     </div>
     <div className='cart'>
     <Button icon={<ShoppingCartOutlined />} style={{height:"40px",fontSize:"20px",fontWeight:"600"}} onClick={()=>GoOnCart()}>Cart</Button>
@@ -63,8 +63,8 @@ const NavBar = (props) => {
     }
     options={[
       {
-        value: 'Mobile',
-        label: 'Mobile',
+        value: 'Appliances',
+        label: 'Appliances',
       },
       {
         value: 'Fashion',
@@ -77,6 +77,10 @@ const NavBar = (props) => {
       {
         value: 'Beauty',
         label: 'Beauty',
+      },
+      {
+        value: 'not selected',
+        label: 'All',
       },
     ]}
   />

@@ -39,19 +39,19 @@ const SpecificProduct = () => {
     }
     console.log("response",response)
   }
-  // console.log(ProductData);
+   console.log(ProductData);
   return (
     <>
       <Fragment>
         <div className="ProductDetails">
           <div>
             <Carousel sx={{ width: "450px" }}>
-              {ProductData?.images &&
-                ProductData?.images.map((item, i) => (
+              {ProductData?.image &&
+                ProductData?.image?.map((item, i) => (
                   <img
                     className="CarouselImage"
                     key={i}
-                    src={item.url}
+                    src={item}
                     alt={`${i} Slide`}
                   />
                 ))}

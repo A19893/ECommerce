@@ -23,7 +23,7 @@ await User.findOne({email:req.body.email}).then((result)=>{
 //Check User Exists 
 exports.loginUser=async(req,res)=>{
     console.log(req.body);
-    await User.findOne({email:req.body.email}).then((result)=>{
+    await User.findOne({ $or: [{ email: req.body.email }, { number: req.body.email }] }).then((result)=>{
         console.log(result);
         if(result==null){
             return res.status(200).json({

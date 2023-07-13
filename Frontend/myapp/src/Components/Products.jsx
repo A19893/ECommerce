@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../Services/getAllProducts.service";
-import Product from "../Assets/Product.jpg";
 import {Rate} from "antd"
 import { useNavigate } from "react-router-dom";
 const Products = (props) => {
@@ -23,7 +22,7 @@ const Products = (props) => {
       <div className="productContainer">
         {products?.map((item, idx) => {
           if(item.name.toLowerCase().includes(props.searchItem.toLowerCase())){
-         if(props.category!='not selected'){
+         if(props.category!=='not selected'){
           if(item.category.toLowerCase()===props.category.toLowerCase())
           return (
             <>
@@ -33,7 +32,7 @@ const Products = (props) => {
                 key={idx}
               >
                 <div className="prodImg">
-                  <img src={Product} alt="Missing" />
+                  <img src={item.image[0]} alt="Missing" />
                 </div>
                   <div>{item.name}</div>
                   <div>&#x20B9;{item.price}</div>
@@ -52,7 +51,7 @@ const Products = (props) => {
                 key={idx}
               >
                 <div className="prodImg">
-                  <img src={Product} alt="Missing" />
+                  <img src={item.image[0]} alt="Missing" />
                 </div>
                   <div>{item.name}</div>
                   <div>&#x20B9;{item.price}</div>

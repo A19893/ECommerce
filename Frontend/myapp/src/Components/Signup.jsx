@@ -13,6 +13,19 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const[number,setNumber]=useState("")
+  const[numberError,setNumberError]=useState('');
+  const handleInputChange=(e)=>{
+    console.log(number.length)
+    setNumberError("")
+    if(e.target.value.length>10){
+      setNumberError("Max Length 10 are allowed")
+    }
+    else{
+      setNumber("")
+   setNumber(e.target.value)
+    }
+  }
   //This function is used to register a user manually
   const onManualSignup = async (e) => {
     e.preventDefault();
@@ -21,7 +34,7 @@ const Signup = () => {
     } else if (password.length <= 6) {
       alert("Password shoul be greater than 6 characters");
     } else {
-      const res = await manualSignup(name, password, email);
+      const res = await manualSignup(name, password, email,number);
       console.log(res);
       if (res.status === 201) {
         dispatch(
@@ -87,11 +100,6 @@ const Signup = () => {
     console.log(err);
   }
 }
-
-//This function will let user sign in with phone
-const signInPhone=async(e)=>{
-  e.preventDefault();
-}
   return (
     <SignupDisplay
       name={name}
@@ -102,7 +110,9 @@ const signInPhone=async(e)=>{
       setEmail={setEmail}
       onManualSignup={onManualSignup}
       signInGoogle={signInGoogle}
-      signInPhone={signInPhone}
+      handleInputChange={handleInputChange}
+      numberError={numberError}
+      number={number}
     />
   );
 };

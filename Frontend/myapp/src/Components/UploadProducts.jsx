@@ -1,64 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { PlusOutlined } from '@ant-design/icons';
+import { Upload } from 'antd';
+import AddItems from './AddItems';
 const UploadProducts = () => {
+  const [image,setImage]=useState([]);
+  const [fileList, setFileList] = useState([]);
+  const handleChange = ({ file:newFile,fileList: newFileList }) => {
+    setFileList(newFileList) ;
+  (newFile.status==='done')&& setImage([...image,`http://localhost:5000/${newFile.response}`])
+};
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
   return (
     <>
-   <form
-        className="modalForm"
-        method="post"
-        action={`http://localhost:5000/routes/createProduct`}
-        encType="multipart/form-data"
+      <Upload
+        action="http://localhost:5000/uploads"
+        listType="picture-circle"
+        fileList={fileList}
+        onChange={handleChange}
+        name='image'
+        showUploadList={{showPreviewIcon:false,showDownloadIcon:false,showRemoveIcon:false}}
       >
-        <div className="inputContainer">
-          <div className="fileInput">
-            <input name="prodName" type="text"/>
-            <input name="prodDesc" type="text"/>
-            <input name="prodPrice" type="text"/>
-            <input name="prodCategory" type="text"/>
-            <label htmlFor="image1">
-              <img src={"jgbhjn"} alt="#" />
-            </label>
-            <input
-              id="image1"
-              type="file"
-              name="image1"
-              accept="image/*"
-            />
-
-            <label htmlFor="image2">
-              <img src={"jgbhjn"} alt="#" />
-            </label>
-            <input
-              id="image2"
-              type="file"
-              name="image2"
-              accept="image/*"
-            />
-
-            <label htmlFor="image3">
-              <img src={"jgbhjn"} alt="#" />
-            </label>
-            <input
-              id="image3"
-              type="file"
-              name="image3"
-              accept="image/*"
-            />
-
-            <label htmlFor="image4">
-              <img src={"jgbhjn"} alt="#" />
-            </label>
-            <input
-              id="image4"
-              type="file"
-              name="image4"
-              accept="image/*"
-            />
-          </div>
-          </div>
-          <input type = "submit" />
-          </form>
+        {fileList.length >= 4 ? null : uploadButton}
+      </Upload>
+      <AddItems image={image}/>
     </>
-  )
-}
-
-export default UploadProducts
+  );
+};
+export default UploadProducts;

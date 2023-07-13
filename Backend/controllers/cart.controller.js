@@ -5,6 +5,14 @@ exports.addToCart=async(req,res)=>{
     const Order=req.body.Order;
     const Quantity=req.body.Quantity;
     const PurchasedBy=req.body.PurchasedBy;
+    
+    const prevOrderId = Order._id;
+    console.log('-----prevOrderId-- :', typeof prevOrderId);
+    const result= await Cart.findOne({'Order._id':prevOrderId });
+    if(result!=null){
+     return res.send("");
+    }
+    else{
     const cart=await Cart.create({
         Order,
         Quantity,
@@ -15,6 +23,7 @@ exports.addToCart=async(req,res)=>{
         message:"Added To Cart",
         cart
     }) 
+   }
 }
 //Function for getting all cart items
 exports.getCartItems=async(req,res)=>{
