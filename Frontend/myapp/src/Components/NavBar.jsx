@@ -63,6 +63,10 @@ const NavBar = (props) => {
     }
     options={[
       {
+        value: 'not selected',
+        label: 'Category',
+      },
+      {
         value: 'Appliances',
         label: 'Appliances',
       },
@@ -77,11 +81,7 @@ const NavBar = (props) => {
       {
         value: 'Beauty',
         label: 'Beauty',
-      },
-      {
-        value: 'not selected',
-        label: 'All',
-      },
+      }
     ]}
   />
     </div>

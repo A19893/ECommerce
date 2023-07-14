@@ -9,15 +9,11 @@ const orderSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    city: {
+    states: {
       type: String,
       required: true,
     },
-    state: {
-      type: String,
-      required: true,
-    },
-  pinCode: {
+  pincode: {
     type: Number,
     required: true,
   },
@@ -26,47 +22,19 @@ const orderSchema = new mongoose.Schema({
     required: true,
   }
 },
-  orderItems:[
-    {
-        name: {
-            type: String,
-            required: true,
-        },
-        price:{
-            type: Number,
-            required: true,
-        },
-        quantity:{
-            type: Number,
-            required: true,
-        },
-        image:{
-            type:String,
-            required:true,
-        },
-        product:{
-            type:mongoose.Schema.ObjectId,
-            Ref:"Product",
-            required:true
-        },
-    },
-  ],
+  orderItems:[],
   user:{
     type:mongoose.Schema.ObjectId,
     Ref:"User",
     required:true
   },
-  itemsPrice:{
-    type:Number,
-    default:0,
-  },
   taxPrice:{
     type:Number,
-    default:0,
+    default:780,
   },
   shippingPrice:{
     type:Number,
-    default:0,
+    default:1500,
   },
   orderStatus:{
     type:String,

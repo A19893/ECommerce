@@ -5,24 +5,13 @@ exports.newOrder=async(req,res,next)=>{
 const{
     shippingInfo,
     orderItems,
-    paymentInfo,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
     user
 }=req.body
 
 const order=await Order.create({
     shippingInfo,
     orderItems,
-    paymentInfo,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
     user,
-    paidAt:Date.now()
 });
 res.status(201).json({
     success:true,

@@ -34,10 +34,13 @@ const SpecificProduct = () => {
 
   const addToCartHandler=async()=>{
     const response=await addToCart(ProductData,quantity,userId)
+    console.log("response",response)
     if(response.status===200){
       alert("Item Added To Cart Successfully!")
     }
-    console.log("response",response)
+    else if(response.status===201){
+    alert("Item Added To Cart Successfully!")
+    }
   }
    console.log(ProductData);
   return (
