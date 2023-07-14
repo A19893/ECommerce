@@ -11,5 +11,5 @@ export const OrderSlice=createSlice({
     }
   }
 })
-export const {addCartItems}=OrderSlice.actions;
+export const {placedOrder}=OrderSlice.actions;
 export default OrderSlice.reducer;

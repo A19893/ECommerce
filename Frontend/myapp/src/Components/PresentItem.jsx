@@ -30,7 +30,7 @@ const PresentItem = (products) => {
     <div className='cart-Item'>
     <h1 className='prodHeader'>Your Cart Items</h1>
      {products?.products?.map((item,idx)=>{
-        {TotalSum+=item.Quantity*item.Order.price}
+        TotalSum+=item.Quantity*item.Order.price
         return(
         <div key={idx} className='specific-Cart'>
        <div className='cart-Img'>

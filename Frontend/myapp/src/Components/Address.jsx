@@ -7,6 +7,8 @@ import { selectAddress } from '../Features/AuthSlice';
 import {Country,State} from 'country-state-city'
 import { CloseOutlined } from "@ant-design/icons";
 import { createOrder } from '../Services/createOrder.service';
+import { placedOrder } from '../Features/OrderSlice';
+import { removeCartItems } from '../Services/removeFromCart.service';
 const Address = () => {
     const navigate=useNavigate();
     const dispatch=useDispatch();
@@ -20,17 +22,23 @@ const Address = () => {
   const [states, setStates] = useState('');
   const [pincode, setPincode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  console.log('----cart----',orderItems)
   const handleSubmit = async(e) => {
+        // Handle form submission logic here
     e.preventDefault();
     await updateAddress(loggedInUserId,Address);
     const shippingInfo={address,country,states,pincode,phoneNumber};
+    const res=await removeCartItems(orderItems);
+    if(res){
+    alert("hogyaa")
+    }
    const response= await createOrder(shippingInfo,orderItems,user);
    console.log('-----order---',response);
+   dispatch(placedOrder(response.data.order))
     dispatch(selectAddress(Address));
     setAddress('');
     navigate("/buy")
     console.log(address,country,states,pincode,phoneNumber);
-    // Handle form submission logic here
   };
       const handleCancel = () => {
         navigate("/cart")

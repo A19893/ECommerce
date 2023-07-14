@@ -5,6 +5,7 @@ const initialState = {
   loggedinUserEmail: null,
   loggedinUserId: null,
   loggedInUserAddress: null,
+  loggedInUserName:null
 };
 export const AuthSlice = createSlice({
   name: "Authentication",
@@ -15,6 +16,7 @@ export const AuthSlice = createSlice({
       state.loggedinUserEmail = action.payload.email;
       state.loggedinUserId = action.payload.id;
        state.loggedInUserAddress = action.payload.address;
+       state.loggedInUserName=action.payload.name
     },
     selectRole: (state, action) => {
       state.loggedInUserRole = action.payload;
@@ -25,6 +27,7 @@ export const AuthSlice = createSlice({
       state.loggedinUserEmail = null;
       state.loggedinUserId = null;
       state.loggedInUserAddress=null;
+      state.loggedInUserName=null;
     },
     selectAddress: (state, action) => {
        state.loggedInUserAddress = action.payload;

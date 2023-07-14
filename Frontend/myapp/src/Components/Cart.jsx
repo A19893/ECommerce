@@ -5,6 +5,7 @@ import NoItem from './NoItem';
 import PresentItem from './PresentItem';
 import { addCartItems } from '../Features/CartSlice';
 import { useDispatch } from 'react-redux';
+import NavBar from './NavBar';
 const Cart = () => {
   const dispatch=useDispatch();
     const userId=useSelector((state)=>state.authentication.loggedinUserId);

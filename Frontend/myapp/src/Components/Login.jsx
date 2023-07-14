@@ -26,7 +26,8 @@ const Login = () => {
           addAuthentication({
             id: res.data.result._id,
             email: res.data.result.email,
-            address:res.data.result.address
+            address:res.data.result.address,
+            name:res.data.result.name,
           })
         );
         dispatch(selectRole(res.data.result.role));
@@ -58,7 +59,8 @@ const Login = () => {
            addAuthentication({
              id: res.data.creation._id,
              email: res.data.creation.email,
-             address:res.data.creation.address
+             address:res.data.result.address,
+             name:res.data.result.name
            })
          );
          navigate("/role");
@@ -71,7 +73,8 @@ const Login = () => {
        addAuthentication({
          id: data.result._id,
          email: data.result.email,
-         address:data.resut.address
+         address:data.resut.address,
+         name:data.result.name
        })
      );
      dispatch(selectRole(data.result.role));

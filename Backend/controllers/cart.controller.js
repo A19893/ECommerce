@@ -12,7 +12,7 @@ exports.addToCart=async(req,res)=>{
     // console.log('-------result------')
     console.log(result);
     if(result!=null){
-        // console.log('-------[purchase]------',PurchasedBy,'-------[purchase]------',result.PurchasedBy.toString())
+         console.log('-------[purchase]------',PurchasedBy,'-------[purchase]------',result.PurchasedBy.toString())
         if(result.PurchasedBy.toString()===PurchasedBy){
             // console.log('----ayaaa');
          result.Quantity+=Quantity
@@ -21,6 +21,18 @@ exports.addToCart=async(req,res)=>{
         success:true,
         message:"Added To Cart",
        })
+        }
+        else{
+            const cart=await Cart.create({
+                Order,
+                Quantity,
+                PurchasedBy
+            })
+            return res.status(200).json({
+                success:true,
+                message:"Added To Cart",
+                cart
+            }) 
         }
     }
     else{
@@ -53,4 +65,15 @@ exports.removeCartItem=async(req,res)=>{
         success:true,
         result
     })
+}
+//Function for removing cart
+exports.removeCart=async(req,res)=>{
+    console.log(req.body)
+ const orders=req.body;
+ orders.map(async(item)=>{
+    await Cart.findByIdAndRemove(item._id);
+ })
+ return res.status(200).json({
+    success:true
+ })
 }
