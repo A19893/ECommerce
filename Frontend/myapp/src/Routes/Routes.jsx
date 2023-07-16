@@ -1,6 +1,5 @@
 import Login from '../Components/Login'
 import Home from '../Components/Home'
-import MyOrders from '../Components/MyOrders'
 import Profile from '../Components/Profile'
 import Signup from '../Components/Signup'
 import Role from '../Components/Role'
@@ -9,6 +8,14 @@ import SpecificProduct from '../Components/SpecificProduct'
 import Cart from '../Components/Cart'
 import Address from '../Components/Address'
 import BuyNow from '../Components/BuyNow'
+import Confirm from '../Components/Confirm'
+import Orders from '../Components/Orders'
+import SpecificOrder from '../Components/SpecificOrder'
+import Dashboard from '../Components/Dashboard'
+import ViewProducts from '../Components/ViewProducts'
+import UpdateProduct from '../Components/UpdateProduct'
+import ViewOrders from '../Components/ViewOrders'
+import UpdateOrder from '../Components/UpdateOrder'
 export const publicRoutes=[
  {
     path:"/",
@@ -27,10 +34,6 @@ export const privateRoutes=[
     {
       path:"/home",
       element:<Home/>
-    },
-    {
-      path:"/MyOrders",
-      element:<MyOrders/>
     },
     {
         path:"/profile",
@@ -59,6 +62,38 @@ export const privateRoutes=[
     {
       path:"/buy",
       element:<BuyNow/>
+    },
+    {
+      path:"/confirm",
+      element:<Confirm/>
+    },
+    {
+      path:'/orders',
+      element:<Orders/>
+    },
+    {
+      path:'/specificOrder',
+      element:<SpecificOrder/>
+    },
+    {
+      path:'/dashBoard',
+      element:<Dashboard/>
+    },
+    {
+      path:'/viewProducts',
+      element:<ViewProducts/>
+    },
+    {
+      path:'/updateProduct',
+      element:<UpdateProduct/>
+    },
+    {
+      path:'/viewOrders',
+      element:<ViewOrders/>
+    },
+    {
+      path:'/updateOrder',
+      element:<UpdateOrder/>
     },
     {
       path:"/*",

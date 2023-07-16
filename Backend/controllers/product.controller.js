@@ -20,6 +20,7 @@ exports.getAllProducts = AsyncErrors(async (req, res, next) => {
 });
 //Update a Specific Product
 exports.updateProduct = AsyncErrors(async (req, res, next) => {
+  console.log('----id---',req.params.id,'----body',req.body);
   let result = await Product.findById(req.params.id);
   if (!result) {
     return res.status(500).json({
@@ -62,7 +63,13 @@ exports.getSpecificProduct = AsyncErrors(async (req, res, next) => {
     result,
   });
 });
-//Upload a Product Image
-// exports.uploadImage=(upload.single('image'),(req,res)=>{
-// console.log(req.body)
-// })
+//get Vendor products
+exports.getVendorProducts=AsyncErrors(async(req,res)=>{
+  let result=await Product.find({CreatedBy:req.params.id});
+  if(result){
+  return res.status(200).json({
+    success:true,
+    result
+  })
+}
+})

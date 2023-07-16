@@ -51,6 +51,7 @@ const Login = () => {
      const data=res._tokenResponse;
      console.log(data);
      const result=await checkUser(data.email,"password");
+     console.log(result);
      if(result.status===200){
        const res = await manualSignup(data.displayName, "password", data.email);
        console.log(res);
@@ -59,8 +60,8 @@ const Login = () => {
            addAuthentication({
              id: res.data.creation._id,
              email: res.data.creation.email,
-             address:res.data.result.address,
-             name:res.data.result.name
+             address:res.data.creation.address,
+             name:res.data.creation.name
            })
          );
          navigate("/role");
@@ -73,20 +74,21 @@ const Login = () => {
        addAuthentication({
          id: data.result._id,
          email: data.result.email,
-         address:data.resut.address,
+         address:data.result.address,
          name:data.result.name
        })
      );
      dispatch(selectRole(data.result.role));
      navigate("/home")
    }
-   }catch (err) {
-     if(err.response.status===302){
-       alert("Kaam kar rha hai")
-     }
-     console.log(err);
-   }
- }
+  }catch (err) {
+    console.log(err);
+    // if(err.response.status===302){
+    //   alert("Kaam kar rha hai")
+    // }
+    console.log(err);
+  }
+}
   return (
     <LoginDisplay
     signInGoogle={signInGoogle}

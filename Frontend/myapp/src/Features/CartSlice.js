@@ -8,8 +8,11 @@ export const CartSlice=createSlice({
     reducers:{
     addCartItems:(state,action)=>{
         state.CartItems=action.payload;
+    },
+    removeReduxCart:(state,action)=>{
+      state.CartItems=null;
     }
   }
 })
-export const {addCartItems}=CartSlice.actions;
+export const {addCartItems,removeReduxCart}=CartSlice.actions;
 export default CartSlice.reducer;

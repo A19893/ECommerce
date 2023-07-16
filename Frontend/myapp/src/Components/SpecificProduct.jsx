@@ -19,10 +19,12 @@ const SpecificProduct = () => {
     getData();
   }, []);
   const increaseQuantity = () => {
-    if (ProductData?.Stock <= quantity) return;
-
+    if (ProductData?.Stock <= quantity) 
+    alert("We don't have more quantity in stock")
+    else{
     const qty = quantity + 1;
     setQuantity(qty);
+    }
   };
 
   const decreaseQuantity = () => {
@@ -42,7 +44,7 @@ const SpecificProduct = () => {
     alert("Item Added To Cart Successfully!")
     }
   }
-   console.log(ProductData);
+   console.log('----product---',ProductData);
   return (
     <>
       <Fragment>

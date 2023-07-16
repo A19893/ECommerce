@@ -29,7 +29,7 @@ const UploadProducts = () => {
   };
   const handleCancel = () => {
     setIsModalOpen(false);
-    navigate('/home')
+    navigate('/dashboard')
   };
   return (
     <>

@@ -4,18 +4,22 @@ exports.newOrder=async(req,res,next)=>{
     console.log(req.body);
 const{
     shippingInfo,
-    orderItems,
-    user
+    order,
+    user,
+    Quantity,
+    subTotal
 }=req.body
 
-const order=await Order.create({
+const orders=await Order.create({
     shippingInfo,
-    orderItems,
+    order,
     user,
+    Quantity,
+    subTotal
 });
 res.status(201).json({
     success:true,
-    order,
+    orders,
 });
 }
 //get Single Order
@@ -55,18 +59,20 @@ exports.getAllOrders=async(req,res,next)=>{
 }
 //update OrderStatus
 exports.updateOrder=async(req,res)=>{
+    console.log(req.params.id,req.body);
     const order=await Order.findById(req.params.id);
-    if(order.orderStatus==="Delivered"){
-       return  res.status(401).json({
-            success:false,
-            message:"Already Delivered"
-        })
-    }
-    order.orderItems.forEach(async(item)=>{
-        await updateStock(item.product,item.quantity);
-    })
-    order.orderStatus="Delivered";
-    order.deliveredAt=Date.now();
+    console.log(order);
+    // if(order.orderStatus==="Delivered"){
+    //    return  res.status(401).json({
+    //         success:false,
+    //         message:"Already Delivered"
+    //     })
+    // }
+    // order.orderItems.forEach(async(item)=>{
+    //     await updateStock(item.product,item.quantity);
+    // })
+    order.orderStatus=req.body.orderStatus;
+    // order.deliveredAt=Date.now();
     await order.save({validateBeforeSave:false});
     res.status(200).json({
         success:true,
@@ -80,16 +86,19 @@ async function updateStock(id,quantity){
 }
 //Delete Order
 exports.deleteOrder=async(req,res)=>{
-    const order=Order.findById(req.params.id);
-    if(!order){
-        return res.statu(401).json({
-            success:false,
-            message:"Order Not Found"
-        })
-    }
-    await order.deleteOne({_id:req.params.id});
+    console.log('---remobve id',req.params.id);
+    const order=await Order.findByIdAndRemove(req.params.id);
+    console.log('-----removee----',order);
     return res.status(200).json({
         success:true,
         message:"Order Deleted"
     })
+}
+exports.getVendorOrder=async(req,res)=>{
+    // console.log(req.params.id);
+    const Orders=await Order.find({'order.CreatedBy':req.params.id});
+    res.status(200).json({
+        success:true,
+        Orders
+       })
 }

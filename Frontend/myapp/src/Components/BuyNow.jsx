@@ -1,12 +1,45 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch,useSelector } from "react-redux";
+import CheckOutSteps from "./CheckOutSteps";
+import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
+import NavBar from "./NavBar";
+import { removeOrder } from "../Features/OrderSlice";
+import { removeCartItems } from "../Services/removeFromCart.service";
+import { removeReduxCart } from "../Features/CartSlice";
+import { removeSpecificOrder } from "../Services/removeSpecificOrder";
+import { updateProduct } from "../Services/updateStock.service";
 const BuyNow = () => {
   const order = useSelector((state) => state.orders.CurrentOrderPlaced);
-  console.log('-------order----',order)
+  console.log('----placed order',order);
+  const orderItems=useSelector((state)=>state.cart.CartItems);
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+  console.log('-------orderItems----',orderItems)
   let subTotal=0;
   const username = useSelector(
     (state) => state.authentication.loggedInUserName
   );
+  const updateStock=async()=>{
+    orderItems?.map(async(item)=>{
+     await updateProduct(item.Order._id,item.Order.Stock-item.Quantity);
+    })
+  }
+  const cancelHandler=async()=>{
+    order?.map(async(item)=>{
+      const res=await removeSpecificOrder(item._id);
+      console.log('----res---',res);
+    })
+    dispatch(removeOrder())
+    navigate('/home')
+  }
+  const proceedHandler=async()=>{
+    updateStock();
+    await removeCartItems(orderItems);
+    dispatch(removeReduxCart());
+    dispatch(removeOrder())
+    navigate('/confirm')
+  }
   const date = new Date();
   const monthNames = [
     "January",
@@ -24,6 +57,8 @@ const BuyNow = () => {
   ];
   return (
     <>
+    <NavBar/>
+    <CheckOutSteps activeStep={1}/>
       <div className="order-container">
         <div className="OrderPlaced">
           <div className="order-Confirm">
@@ -48,32 +83,8 @@ const BuyNow = () => {
                 marginTop: "40px",
               }}
             >
-              {username}, thank you for your order!
+              {username}, please confirm your order!
             </div>
-            <span
-              style={{
-                fontWeight: "400",
-                fontFamily: "Times New Roman",
-                display: "table",
-                margin: "auto",
-                marginTop: "20px",
-              }}
-              className="order-resp"
-            >
-              We've recieved your order and will contact you as soon as your
-              package
-            </span>
-            <span
-              style={{
-                fontWeight: "400",
-                fontFamily: "Times New Roman",
-                display: "table",
-                margin: "auto",
-                marginTop: "20px",
-              }}
-            >
-              is shipped. You can find your purchase information below.
-            </span>
             <span  style={{
                 fontWeight: "400",
                 fontFamily: "Times New Roman",
@@ -81,7 +92,7 @@ const BuyNow = () => {
                 margin: "auto",
                 marginTop: "20px",
               }}>
-              Order will be delivered at {order.shippingInfo.address}
+              Order will be delivered at {order[0]?.shippingInfo?.address}
             </span>
           </div>
           <div className="order-summary">
@@ -97,41 +108,35 @@ const BuyNow = () => {
             <div className="order-items">
               <div className="order-desc">
                 <hr />
-                {order.orderItems.map((item, idx) => {
-                  subTotal+=item.Quantity*item.Order.price
+                {order?.map((item, idx) => {
+                  subTotal+=item.Quantity*item.order.price
                   return (
                     <>
                       <div className="order-specific">
                         <div className="order-img">
-                          <img src={item.Order.image[0]} alt="missing" />
+                          <img src={item.order.image[0]} alt="missing" />
                         </div>
                         <div className="order-detail">
                           <div className="order-price">
                             <div className="order-name">Product Name</div>
-                            <div className="order-name">{item.Order.name}</div>
+                            <div className="order-name">{item.order.name}</div>
                           </div>
                           <div className="order-price">
                             <div className="order-name">Category</div>
-                            <div className="order-name">{item.Order.category}</div>
+                            <div className="order-name">{item.order.category}</div>
                           </div>
-                          {/* <div className="order-price">
-                            <div className="order-name">
-                             Shipping Price
-                            </div>
-                            <div className="order-name">{item.shippingPrice}</div>
-                          </div> */}
                           <hr />
                           <div className="order-price">
                             <div className="order-name">Product ID</div>
-                            <div className="order-name">#{item.Order._id}</div>
+                            <div className="order-name">#{item.order._id}</div>
                           </div>
                           <div className="order-price">
                             <div className="order-name">Price</div>
-                            <div className="order-name">₹{item.Order.price}</div>
+                            <div className="order-name">₹{item.order.price}</div>
                           </div>
                           <div className="order-price">
                             <div className="order-name">Vendor ID</div>
-                            <div className="order-name">#{item.Order.CreatedBy}</div>
+                            <div className="order-name">#{item.order.CreatedBy}</div>
                           </div>
                           <div className="order-price">
                             <div className="order-name">Quantity</div>
@@ -164,6 +169,10 @@ const BuyNow = () => {
               </div>
               <hr />
             </div>
+            <div>
+            <Button style={{backgroundColor:"red",marginLeft:'10px',width:'100px'}} onClick={cancelHandler}>Cancel</Button>
+            <Button className='proceedBtn' type="primary" onClick={proceedHandler}>Proceed</Button>
+              </div>
           </div>
         </div>
       </div>

@@ -57,5 +57,9 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  Status:{
+    type:String,
+    required:true
+  }
 });
 module.exports = mongoose.model("Prodcut", productSchema);

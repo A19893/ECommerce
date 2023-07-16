@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  CurrentOrderPlaced:null
+  CurrentOrderPlaced:[]
 };
 export const OrderSlice=createSlice({
     name:'Order',
     initialState:initialState,
     reducers:{
     placedOrder:(state,action)=>{
-        state.CurrentOrderPlaced=action.payload;
+        state.CurrentOrderPlaced.push(action.payload);
+    },
+    removeOrder:(state,action)=>{
+      state.CurrentOrderPlaced=[];
     }
   }
 })
-export const {placedOrder}=OrderSlice.actions;
+export const {placedOrder,removeOrder}=OrderSlice.actions;
 export default OrderSlice.reducer;

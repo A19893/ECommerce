@@ -22,11 +22,22 @@ const orderSchema = new mongoose.Schema({
     required: true,
   }
 },
-  orderItems:[],
+  order:{
+    type:Object,
+    required:true
+  },
+  Quantity:{
+    type:Number,
+    required:true
+  },
   user:{
     type:mongoose.Schema.ObjectId,
     Ref:"User",
     required:true
+  },
+  subTotal:{
+    type:Number,
+    required:true,
   },
   taxPrice:{
     type:Number,

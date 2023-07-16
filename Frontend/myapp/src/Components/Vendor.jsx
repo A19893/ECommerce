@@ -1,17 +1,17 @@
-import React from 'react';
+import React,{useState} from 'react';
 import NavBar from './NavBar';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { useNavigate } from 'react-router-dom';
+import Slider from './Slider'
+import Prodcuts from './Products'
+import BestProducts from './BestProducts';
 const Vendor = () => {
-  const navigate=useNavigate();
-  const uploadProd=()=>{
-    navigate("/upload")
-  }
+  const[searchItem,setSearchItem]=useState('');
+  const[category,setCategory]=useState('not selected');
   return (
     <div>
-      <NavBar/>
-      Vendor
-      <AddCircleIcon onClick={uploadProd}fontSize='large' className='uploadProd'/>
+      <NavBar setSearchItem={setSearchItem} setCategory={setCategory}/>
+      <Slider/>
+      <BestProducts/>
+    <Prodcuts searchItem={searchItem} category={category}/>
     </div>
   );
 }

@@ -8,13 +8,12 @@ import {Country,State} from 'country-state-city'
 import { CloseOutlined } from "@ant-design/icons";
 import { createOrder } from '../Services/createOrder.service';
 import { placedOrder } from '../Features/OrderSlice';
-import { removeCartItems } from '../Services/removeFromCart.service';
+import CheckOutSteps from './CheckOutSteps';
 const Address = () => {
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const orderItems=useSelector((state)=>state.cart.CartItems);
     const user=useSelector((state)=>state.authentication.loggedinUserId);
-    // const [Address,setAddress]=useState('');
     const [isModalOpen, setIsModalOpen] = useState(true);
     const loggedInUserId=useSelector((state)=>state.authentication.loggedinUserId);
     const [address, setAddress] = useState('');
@@ -28,13 +27,13 @@ const Address = () => {
     e.preventDefault();
     await updateAddress(loggedInUserId,Address);
     const shippingInfo={address,country,states,pincode,phoneNumber};
-    const res=await removeCartItems(orderItems);
-    if(res){
-    alert("hogyaa")
-    }
-   const response= await createOrder(shippingInfo,orderItems,user);
-   console.log('-----order---',response);
-   dispatch(placedOrder(response.data.order))
+    orderItems.map(async(item)=>{
+      let subTotal=item.Order.price*item.Quantity;
+      const response= await createOrder(shippingInfo,item.Order,user,item.Quantity,subTotal);
+      console.log('-----order---',response);
+      dispatch(placedOrder(response.data.orders));
+    })
+
     dispatch(selectAddress(Address));
     setAddress('');
     navigate("/buy")
@@ -45,6 +44,8 @@ const Address = () => {
         setIsModalOpen(false);
       };
   return (
+    <>
+    <CheckOutSteps activeStep={0}/>
     <Modal title="Enter Your Address" closeIcon={<CloseOutlined onClick={handleCancel}/>} open={isModalOpen} footer={null} >
         <form className="form" onSubmit={handleSubmit}>
       <label htmlFor="address">Address:</label>
@@ -108,6 +109,7 @@ const Address = () => {
       <button type="submit"  style={{padding:'15px',fontSize:'20px'}}>Buy Now</button>
     </form>
     </Modal>
+    </>
   );
 }
 

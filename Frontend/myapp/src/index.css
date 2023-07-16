@@ -193,10 +193,15 @@ margin-top: 30px;
 width:120px;
 margin-left: 40px;
 }
+.dashBoardButton{
+  margin-left: 30px;
+  margin-top: 30px;
+  /* margin-right: 10px; */
+}
 .profile{
   margin-top: 30px;
   width:100px;
-  margin-left: 50px;
+  margin-left: 30px;
 }
 .cart{
   margin-top: 30px;
@@ -209,10 +214,8 @@ margin-left: 40px;
   margin-left: 50px;
 }
 .category{
-  margin-top: 60px;
-  width:100px;
+  margin-top: 30px;
   margin-left: 50px; 
-  height:100px;
 }
 .ant-select-single{
   color:black;
@@ -229,12 +232,12 @@ margin-left: 40px;
   color:black;
 }
 .uploadProd{
-position: fixed;
-bottom:0;
-right:0;
+/* position: fixed; */
+/* bottom:0;
+right:0; */
 cursor: pointer;
-margin-right: 40px;
-margin-bottom: 20px;
+/* margin-right: 40px;
+margin-bottom: 20px; */
 }
 .MuiIcon-root{
 cursor: pointer;
@@ -552,7 +555,7 @@ button {
   min-height: 600px;
 }
 .order-img{
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 250px; 
   width: 250px;
   margin-left: 15px;
@@ -644,4 +647,86 @@ ul li{
 }
 .uploadProd .ant-select-selector{
 width:300px;
+}
+.MuiStepConnector-line{
+  display: none !important;
+}
+.MuiStepConnector-root{
+  height:1px;
+  background-color: rgba(0,0,0,0.349);
+}
+.MuiStepConnector-active,
+.MuiStepConnector-comleted{
+background-color: red;
+}
+.proceedBtn{
+  margin-left:600px;
+}
+.order-Confirm1{
+  background-color:rgb(23, 220, 23);
+  height:220px;
+}
+.css-10mg1vw-MuiStepper-root{
+  margin-top: 20px;
+}
+.order-display{
+  background-color:rgb(40, 116, 240);
+  height:100px;
+}
+.dashBoard .cards{
+  display: flex;
+  justify-content: space-around;
+}
+.dashBoard .cards .item{
+  padding: 40px;
+  background-color: rgba(40, 117, 240, 0.421);
+  margin-top: 50px;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.dashBoard .cards .item img{
+  width: 150px;
+  height: 150px;
+}
+.updateContainer{
+  display:flex;
+  height:700px;
+  width:900px;
+  margin:auto;
+}
+.update-leftPart{
+  display: grid;
+width:500px;
+height:600px;
+/* border:1px solid black; */
+}
+.update-Img{
+  width:500px;
+  height:300px;
+}
+.update-Links{
+  margin-top: 10px;
+  margin-left: 0px;
+  height:380px;
+  width:500px;
+  /* border:1px solid black; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.uploaded-Img{
+  margin-top: 10px;
+  height:160px;
+  width:250px;
+}
+.update-Links img{
+  width:100%;
+  height:100%;
+}
+.update-rightPart{
+  margin-left: 20px;
+  display: grid;
+  width:400px;
+  height:700px;
 }

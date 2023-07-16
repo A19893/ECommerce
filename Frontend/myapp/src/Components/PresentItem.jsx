@@ -13,7 +13,7 @@ const PresentItem = (products) => {
     console.log("Products",products);
       const checkOut=()=>{
         console.log("clicked",Address);
-        Address==='Address'?navigate("/address"):navigate("/buy");
+        navigate("/address");
         return;
       }
       const removeHandler=async(id)=>{
@@ -23,7 +23,6 @@ const PresentItem = (products) => {
         }
         console.log(res);
       }
-      // console.log(products)
   return (
     <>    
     <NavBar/>

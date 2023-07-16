@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../Services/getAllProducts.service";
 import {Rate} from "antd"
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Products = (props) => {
   const [products, setProducts] = useState(null);
+  const userId=useSelector((state)=>state.authentication.loggedinUserId);
   const navigate=useNavigate();
   useEffect(() => {
     const getData = async () => {
@@ -21,6 +23,7 @@ const Products = (props) => {
       <div className="prodHeader">Featured Products</div>
       <div className="productContainer">
         {products?.map((item, idx) => {
+          if(item.CreatedBy!==userId && item.Status==='Publish')
           if(item.name.toLowerCase().includes(props.searchItem.toLowerCase())){
          if(props.category!=='not selected'){
           if(item.category.toLowerCase()===props.category.toLowerCase())

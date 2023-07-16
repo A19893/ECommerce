@@ -12,10 +12,19 @@ const AddItems = (image) => {
     const[category,setCategory]=useState('');
     const[Stock,setStock]=useState('');
     const navigate=useNavigate();
-    const addProduct=async(e)=>{
-        const response=await addProducts(name,description,price,category,image?.image,CreatedBy,Stock);
+    const addProduct=async()=>{
+       let Status='Publish'
+        const response=await addProducts(name,description,price,category,image?.image,CreatedBy,Stock,Status);
         if(response.status===201){
           alert('Item Added Successfully');
+          navigate("/home")
+        }
+    }
+    const draftProduct=async()=>{
+      let Status='Draft'
+      const response=await addProducts(name,description,price,category,image?.image,CreatedBy,Stock,Status);
+        if(response.status===201){
+          alert('Item Added to Draft');
           navigate("/home")
         }
     }
@@ -53,8 +62,7 @@ const AddItems = (image) => {
       </Form.Item>
       <Form.Item label="Select">
         <Select placeholder="Category"  style={{width:"350px",padding:"5px"}} onSelect={(value)=>setCategory(value)}>
-        <Select.Option value="Applications" >Applications</Select.Option>
-          <Select.Option value="Applications" >Applications</Select.Option>
+        <Select.Option value="Applications" >Appliances</Select.Option>
           <Select.Option value="Beauty" >Beauty</Select.Option>
           <Select.Option value="Fashion" >Fashion</Select.Option>
           <Select.Option value="Electronics" >Electronics</Select.Option>
@@ -68,6 +76,9 @@ const AddItems = (image) => {
       </Form.Item>
       <Form.Item >
         <Button type="primary" style={{textAlign:'center',margin:'auto',display:'table'}} onClick={()=>addProduct()}>Add Product</Button>
+      </Form.Item>
+      <Form.Item >
+        <Button type="primary" style={{textAlign:'center',margin:'auto',display:'table',backgroundColor:'red'}} onClick={()=>draftProduct()}>Draft Product</Button>
       </Form.Item>
     </Form>
   )

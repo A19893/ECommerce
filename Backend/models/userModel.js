@@ -19,16 +19,8 @@ const userSchema=new mongoose.Schema({
         default:"Password"
     },
     avatar:{
-        public_id:{
-            type:String,
-            default:'sample_id',
-            required:true,
-        },
-        url:{
-            type:String,
-            default:'sample_url',
-            required:true,
-        }
+        type:String,
+        default:'Avatar'
     },
     role:{
         type:String,
@@ -49,6 +41,10 @@ const userSchema=new mongoose.Schema({
     number:{
         type:String,
         default:'Number'
+    },
+    fileList:{
+        type:String,
+        default:'Avatar'
     }
 })
 module.exports=mongoose.model("Users",userSchema)
