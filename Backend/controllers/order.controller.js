@@ -47,13 +47,8 @@ exports.getMyOrders=async(req,res,next)=>{
 //get AllOrders
 exports.getAllOrders=async(req,res,next)=>{
     const Orders=await Order.find();
-   let totalAmount=0;
-   Orders.forEach((item)=>{
-    totalAmount+=item.itemsPrice
-   })
    res.status(200).json({
     success:true,
-    totalAmount,
     Orders
    })
 }

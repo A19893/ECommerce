@@ -22,6 +22,10 @@ const Login = () => {
       const res = await manualLogin(password, email);
       console.log(res);
       if (res.status === 201) {
+        if(res.data.result.status==='Deactivate'){
+            alert('You dont have access to our website. Please Contact our Support Team');
+        }
+        else{
         dispatch(
           addAuthentication({
             id: res.data.result._id,
@@ -34,6 +38,7 @@ const Login = () => {
         setPassword("");
        setEmail("");
         navigate("/home");
+        }
       }
       else if(res.status===200){
         alert("You are Not a Registered User");
@@ -69,7 +74,10 @@ const Login = () => {
    }
    else if(result.status===201){
      const data=result.data
-     console.log(data);
+     if(data.result.status==='Deactivate'){
+      alert('You dont have access to our website. Please Contact our Support Team');
+     }
+     else{
      dispatch(
        addAuthentication({
          id: data.result._id,
@@ -80,6 +88,7 @@ const Login = () => {
      );
      dispatch(selectRole(data.result.role));
      navigate("/home")
+      }
    }
   }catch (err) {
     console.log(err);

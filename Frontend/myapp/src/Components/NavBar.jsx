@@ -62,7 +62,7 @@ const NavBar = (props) => {
       <Button icon={<LogoutOutlined />} style={{height:"40px",fontSize:"20px",fontWeight:"600"}} onClick={()=>logout()}>Logout</Button>
     </div>
     {
-      userRole==='Vendor'?<div className='dashBoardButton'>
+      userRole!=='User'?<div className='dashBoardButton'>
       <Button icon={<DashboardOutlinedIcon />} style={{height:"40px",fontSize:"20px",fontWeight:"600"}} onClick={()=>navigate('/dashBoard')}>Dashboard</Button>
     </div>:""
     }

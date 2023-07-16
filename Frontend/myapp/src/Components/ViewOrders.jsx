@@ -3,15 +3,17 @@ import { useSelector } from 'react-redux';
 import { getVendorOrders } from '../Services/getVendorOrders.service';
 import { Modal,Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { getAllOrders } from '../Services/getAllOrders.service';
 const ViewOrders = () => {
     const userId=useSelector((state)=>state.authentication.loggedinUserId);
+    const userRole=useSelector((state)=>state.authentication.loggedInUserRole);
     const[myOrders,setMyOrders]=useState(null);
     const navigate=useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(true);
     let TotalEarnings=0;
     useEffect(()=>{
         const getData=async()=>{
-            const response=await getVendorOrders(userId);
+            const response=userRole==='Admin'?await getAllOrders():await getVendorOrders(userId);
             console.log('----vendor',response);
             setMyOrders(response.data.Orders);
             }

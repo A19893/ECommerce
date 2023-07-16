@@ -16,6 +16,8 @@ import ViewProducts from '../Components/ViewProducts'
 import UpdateProduct from '../Components/UpdateProduct'
 import ViewOrders from '../Components/ViewOrders'
 import UpdateOrder from '../Components/UpdateOrder'
+import ViewUsers from '../Components/ViewUsers'
+import ViewVendors from '../Components/ViewVendors'
 export const publicRoutes=[
  {
     path:"/",
@@ -94,6 +96,14 @@ export const privateRoutes=[
     {
       path:'/updateOrder',
       element:<UpdateOrder/>
+    },
+    {
+      path:'/viewUsers',
+      element:<ViewUsers/>
+    },
+    {
+      path:'/viewVendors',
+      element:<ViewVendors/>
     },
     {
       path:"/*",

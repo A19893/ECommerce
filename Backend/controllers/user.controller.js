@@ -1,4 +1,3 @@
-const productModel = require("../models/productModel");
 const User=require("../models/userModel");
 const objId=require("mongodb").ObjectId
 //Register a User
@@ -76,6 +75,7 @@ exports.getUserDetails=async(req,res,next)=>{
 }
 //update User Details
 exports.updateUserDetails=async(req,res,next)=>{
+    // console.log(req.params.id,'----body--',req.body);
    const result= await User.findByIdAndUpdate(req.params.id,req.body);
    return res.status(200).json({
     success:true,

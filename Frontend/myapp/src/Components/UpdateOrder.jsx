@@ -77,7 +77,7 @@ const UpdateOrder = () => {
       <Select placeholder="Status"  style={{width:"180px",padding:"5px"}} value={orderStatus} onSelect={(value)=>setorderStatus(value)}>
         <Select.Option value="Processing" >Processing</Select.Option>
           <Select.Option value="Shipped" >Shipped</Select.Option>
-          <Select.Option value="Disptched" >Disptched</Select.Option>
+          <Select.Option value="Delivered" >Dispatched</Select.Option>
           <Select.Option value="Cancel Order" >Cancel Order</Select.Option>
         </Select>
       </Form.Item>

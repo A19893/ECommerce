@@ -34,6 +34,10 @@ const userSchema=new mongoose.Schema({
         type:String,
         default:date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
     },
+    status:{
+       type:'String',
+       default:'Active'
+    },
     address:{
         type:String,
         default:'Address'

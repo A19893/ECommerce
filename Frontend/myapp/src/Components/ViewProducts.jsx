@@ -4,14 +4,16 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Modal,Table } from 'antd';
 import { deleteProduct } from '../Services/deleteProduct.service';
+import { getAllProducts } from '../Services/getAllProducts.service';
 const ViewProducts = () => {
   const userId=useSelector((state)=>state.authentication.loggedinUserId);
+  const userRole=useSelector((state)=>state.authentication.loggedInUserRole);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const[products,setProducts]=useState('');
   const navigate=useNavigate();
   useEffect(()=>{
     const getData=async()=>{
-      const res=await getVendorProduct(userId);
+      const res=userRole==='Admin'?await getAllProducts():await getVendorProduct(userId);
       setProducts(res.data.result);
     }
     getData();

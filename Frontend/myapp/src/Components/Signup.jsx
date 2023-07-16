@@ -83,6 +83,10 @@ const Signup = () => {
   }
   else if(result.status===201){
     const data=result.data
+    if(data.result.status==='Deactivate'){
+     alert('You dont have access to our website. Please Contact our Support Team');
+    }
+    else{
     console.log(data);
     dispatch(
       addAuthentication({
@@ -95,6 +99,7 @@ const Signup = () => {
     dispatch(selectRole(data.result.role));
     navigate("/home")
   }
+}
   }catch (err) {
     console.log(err);
     // if(err.response.status===302){
