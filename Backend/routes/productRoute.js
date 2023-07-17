@@ -1,5 +1,5 @@
 const express=require("express");
-const { getAllProducts, createProduct, updateProduct, deleteProduct, getSpecificProduct, deleteSpecificProduct, getVendorProducts,  } = require("../controllers/product.controller");
+const { getAllProducts, createProduct, updateProduct, deleteProduct, getSpecificProduct, deleteSpecificProduct, getVendorProducts, getBestProducts,  } = require("../controllers/product.controller");
 const router=express.Router();
 
 //Route for getting all Products
@@ -19,4 +19,7 @@ router.route("/specificProduct/:id").get(getSpecificProduct);
 
 //Route for getting vendor products
 router.route('/getVendorProducts/:id').get(getVendorProducts);
+
+//Route for getting best products
+router.route('/getBestProducts').get(getBestProducts)
 module.exports=router;

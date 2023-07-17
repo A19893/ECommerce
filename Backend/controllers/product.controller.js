@@ -73,3 +73,13 @@ exports.getVendorProducts=AsyncErrors(async(req,res)=>{
   })
 }
 })
+//get Best Products
+exports.getBestProducts=AsyncErrors(async(req,res)=>{
+  let result=await Product.find().sort({PurchaseCount:-1}).limit(4);
+  if(result){
+    return res.status(200).json({
+      success:true,
+      result
+    })
+  }
+})

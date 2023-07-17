@@ -46,9 +46,17 @@ const userSchema=new mongoose.Schema({
         type:String,
         default:'Number'
     },
-    fileList:{
+    companyName:{
         type:String,
-        default:'Avatar'
+        default:'Enter Company Name'
+    },
+    companyDetails:{
+        type:String,
+        default:'Enter Company details'
+    },
+    companyLogo:{
+        type:String,
+        default:'Business'
     }
 })
 module.exports=mongoose.model("Users",userSchema)

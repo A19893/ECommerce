@@ -78,7 +78,7 @@ const UpdateOrder = () => {
         <Select.Option value="Processing" >Processing</Select.Option>
           <Select.Option value="Shipped" >Shipped</Select.Option>
           <Select.Option value="Delivered" >Dispatched</Select.Option>
-          <Select.Option value="Cancel Order" >Cancel Order</Select.Option>
+          <Select.Option value="Cancelled" >Cancel Order</Select.Option>
         </Select>
       </Form.Item>
       <Form.Item label="Order Price">

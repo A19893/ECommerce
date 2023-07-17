@@ -17,7 +17,7 @@ const Login = () => {
   const onManualLogin=async(e)=>{
     e.preventDefault();
     if (password.length <= 6) {
-      alert("Password shoudl be greater than 6 characters");
+      alert("Please Fill Password Properly");
     } else {
       const res = await manualLogin(password, email);
       console.log(res);

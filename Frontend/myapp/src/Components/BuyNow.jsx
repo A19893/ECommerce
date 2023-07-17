@@ -9,6 +9,7 @@ import { removeCartItems } from "../Services/removeFromCart.service";
 import { removeReduxCart } from "../Features/CartSlice";
 import { removeSpecificOrder } from "../Services/removeSpecificOrder";
 import { updateProduct } from "../Services/updateStock.service";
+import { updatePurchaseCount } from "../Services/updatePurchaseCount.service";
 const BuyNow = () => {
   const order = useSelector((state) => state.orders.CurrentOrderPlaced);
   console.log('----placed order',order);
@@ -25,6 +26,11 @@ const BuyNow = () => {
      await updateProduct(item.Order._id,item.Order.Stock-item.Quantity);
     })
   }
+  const PurchaseCount=()=>{
+    orderItems?.map(async(item)=>{
+      await updatePurchaseCount(item.Order._id,item.Order.PurchaseCount+1);
+     })
+  }
   const cancelHandler=async()=>{
     order?.map(async(item)=>{
       const res=await removeSpecificOrder(item._id);
@@ -35,6 +41,7 @@ const BuyNow = () => {
   }
   const proceedHandler=async()=>{
     updateStock();
+    PurchaseCount();
     await removeCartItems(orderItems);
     dispatch(removeReduxCart());
     dispatch(removeOrder())

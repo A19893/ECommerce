@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useLocation} from 'react-router-dom'
 import {Button} from 'antd'
 import { useNavigate } from 'react-router-dom';
 import OrderTrack from './OrderTrack';
+import { getDateDifference } from './DateDifference';
+import { updateOrder } from '../Services/updateOrder.service';
 const SpecificOrder = () => {
     const {state}=useLocation();
     const navigate=useNavigate();
     console.log('-----state----',state);
     const TotalPrice=state.shippingPrice+state.subTotal+state.taxPrice;
+    const handleCancel=async()=>{
+      const Time=getDateDifference(state.createdAt);
+       if(Time<24){
+         const response=await updateOrder(state._id,'Cancelled');
+         if(response.status===200){
+          alert('You order has been cancelled')
+         }
+       }
+       else{
+        alert('You cannot cancel order as it has been more than 24 hours!!')
+       }
+    }
   return (
     <div className="order-container">
         <div className="OrderPlaced">
@@ -25,7 +39,7 @@ const SpecificOrder = () => {
             </span>
           </div>
           <div>
-         { state.orderStatus==='Cancel Order'?<span>Your Order has been cancelled by vendor</span>:<OrderTrack status={state.orderStatus}/>}
+         { state.orderStatus==='Cancelled'?<span style={{ display: "table", margin: "auto",fontSize:'25px',fontWeight:'600',color:'red'}}>Your Order has been cancelled!!</span>:<OrderTrack status={state.orderStatus}/>}
           </div>
           <div className="order-summary">
             <h4 style={{ display: "table", margin: "auto", marginTop: "50px" }}>
@@ -75,7 +89,7 @@ const SpecificOrder = () => {
               </div>
             </div>
             <div style={{marginTop:'20px',marginBottom:'20px'}}>
-            <Button style={{backgroundColor:"red",marginLeft:'10px',width:'100px'}} >Cancel</Button>
+           {state.orderStatus!=='Cancelled'?<Button style={{backgroundColor:"red",marginLeft:'10px',width:'100px'}} onClick={()=>{handleCancel()}}>Cancel</Button>:""}
             <Button className='proceedBtn' type="primary" onClick={()=>navigate("/home")}>Go Back</Button>
               </div>
           </div>

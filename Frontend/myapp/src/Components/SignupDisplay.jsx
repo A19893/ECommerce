@@ -9,15 +9,14 @@ import {Link} from 'react-router-dom'
 import validator from 'validator'
 import "react-phone-number-input/style.css";
 const SignupDisplay = (props) => {
-  const [emailError, setEmailError] = useState('')
   // Email Validation
 const validateEmail = (e) => {
   var email = e.target.value
 
   if (validator.isEmail(email)) {
-     setEmailError('Valid Email :)')
+    props. setEmailError('Valid Email :)')
   } else {
-     setEmailError('Enter valid Email!');
+     props.setEmailError('Enter valid Email!');
   }
 }
   const handleChange=(e)=>{
@@ -45,6 +44,7 @@ const validateEmail = (e) => {
                 placeholder="   Username"
                 prefix={<UserOutlined />}
                 onChange={(e)=>props.setName(e.target.value)}
+                
                 value={props.name}
               />
               <br />
@@ -61,7 +61,7 @@ const validateEmail = (e) => {
                 onChange={handleChange}
                 value={props.email}
               />
-              <span style={{ fontWeight: 'bold', color: 'red' }}>{emailError}</span>
+              <span style={{ fontWeight: 'bold', color: 'red' }}>{props.emailError}</span>
               <br />
               <br />
               <Input
@@ -71,11 +71,12 @@ const validateEmail = (e) => {
                   boxShadow: " 0 10px 10px -5px rgba(0, 0, 0, 0.4)",
                   padding: "15px",
                 }}
-                type="number"
+                type="text"
                 placeholder="    Phone Number"
                 prefix={<PhoneFilled />}
                 onChange={props.handleInputChange}
                 value={props.number}
+                required
               />
               <span style={{ fontWeight: 'bold', color: 'red' }}>{props.numberError}</span>
               <br/>
@@ -91,12 +92,13 @@ const validateEmail = (e) => {
                 prefix={<LockOutlined />}
                 onChange={(e)=>props.setPassword(e.target.value)}
                 value={props.password}
+                required
               />
               <br/>
               <span className="navLogin"><Link style={{color:"rgb(23, 74, 132)"}}to="/login">Already a Registered User?</Link></span>
               <br />
               <br />
-              <span className="signupbtn">
+              <div style={{justifyContent:'space-between'}}>
                 <Button
                   type="primary"
                   icon={<LoginOutlined />}
@@ -105,9 +107,6 @@ const validateEmail = (e) => {
                 >
                   Sign Up
                 </Button>
-              </span>
-            </div>
-            <div className="signingoogle">
               <Button
                 type="primary"
                 icon={<GoogleOutlined />}
@@ -120,18 +119,7 @@ const validateEmail = (e) => {
               >
                 Sign In with Google
               </Button>
-              <Button
-                type="primary"
-                icon={<PhoneFilled />}
-                style={{
-                  paddingRight: "10px",
-                  marginRight: "100px",
-                  height: "40px",
-                }}
-                onClick={props.signInPhone}
-              >
-                Sign In with Phone Number
-              </Button>
+              </div>
             </div>
           </div>
         </div>

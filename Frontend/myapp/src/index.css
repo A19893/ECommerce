@@ -247,6 +247,8 @@ cursor: pointer;
   margin:0;
   width:100%;
   height:400px;
+  display: flex;background: rgb(249,218,45);
+  background: linear-gradient(180deg, rgba(249,218,45,1) 0%, rgb(247, 196, 41) 90%, rgba(238,156,64,1) 100%);
 }
 .productContainer{
   width:100%;
@@ -289,9 +291,10 @@ cursor: pointer;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .ProductDetails {
-  background-color: rgb(255, 255, 255);
+  background-color: #F6F5F3;
   width: 100vw;
   max-width: 100%;
+  height:100vh;
   padding: 6vmax;
   box-sizing: border-box;
   display: flex;
@@ -305,10 +308,13 @@ cursor: pointer;
   align-items: center;
   padding: 2vmax;
   box-sizing: border-box;
-  border: 1px solid white;
+  border:  1px solid #F6F5F3;
+  background-color: #fffbf3;
 }
 .ProductDetails > div:last-child {
   align-items: flex-start;
+  background-color: #fffbf3;
+  border:  1px solid #F6F5F3;
 }
 
 .CarouselImage {
@@ -399,6 +405,15 @@ cursor: pointer;
   color: rgba(0, 0, 0, 0.651);
   font: 400 1vmax "Roboto";
   margin: 1vmax 0;
+}
+.detailsBlock-4 {
+  color: rgba(0, 0, 0, 0.897);
+  font: 500 1.2vmax sans-serif;
+}
+
+.detailsBlock-4 > p {
+  color: rgba(0, 0, 0, 0.534);
+  font: 300 0.8vmax sans-serif;
 }
 .redColor{
   color: red;
@@ -621,6 +636,7 @@ height: 100%;
 .upload-img{
   margin-left:50px;
   margin-top: 30px;
+  display:flex;
   /* width:100px;
   height:100px;
   border:1pxsolid black; */
@@ -729,4 +745,39 @@ height:600px;
   display: grid;
   width:400px;
   height:700px;
+}
+.avatar {
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.addProduct-item img{
+height:400px;
+}
+.bestProduct{
+  padding-top: 40px;
+  height:400px;
+  width:300px;
+  margin-left: 15px;
+  margin-right: 15px;
+  cursor:pointer;
+  display: flex;
+  flex-direction: column;
+  border-radius: 25px;
+}
+.bestProduct :hover{
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.bestProduct-container{
+  display: flex;
+  margin-left: 20px;
+}
+.bestImg{
+  height:300px;
+}
+.bestImg img{
+  width:100%;
+  height:100%;
+  border-radius: 20px;
 }

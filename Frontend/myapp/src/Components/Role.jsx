@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { Modal,Select } from 'antd';
+import { Button, Modal,Select } from 'antd';
 import {useDispatch,useSelector} from 'react-redux';
 import { updateRole } from '../Services/updateRole.service';
 import { selectRole } from '../Features/AuthSlice';
@@ -30,8 +30,9 @@ const Role = () => {
       };
   return (
       <>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Please select a purpose you want to be with us!!!" open={isModalOpen}  footer={null}>
       <Select
+      style={{width:"180px",padding:"5px"}}
     showSearch
     placeholder="Please Select a Role"
     optionFilterProp="children"
@@ -49,6 +50,7 @@ const Role = () => {
         label: 'User',
       },
     ]}/>
+    <Button type="primary" onClick={handleOk}>Submit</Button>
       </Modal>
       </>
   );

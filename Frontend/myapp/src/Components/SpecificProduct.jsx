@@ -2,13 +2,17 @@ import { useEffect, useState, Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import { getSpecificProduct } from "../Services/getSpecificProduct.service";
 import Carousel from "react-material-ui-carousel";
-import { Rate } from "antd";
+import { Rate,Button } from "antd";
 import { addToCart } from "../Services/addToCart.service";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const SpecificProduct = () => {
   const { state } = useLocation();
+  const navigate=useNavigate();
   const [ProductData, setProductData] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const[coupon,setCoupon]=useState(false);
+  const [couponCode,setCouponCode]=useState('')
   const userId=useSelector((state)=>state.authentication.loggedinUserId);
   console.log(userId)
   useEffect(() => {
@@ -34,17 +38,28 @@ const SpecificProduct = () => {
     setQuantity(qty);
   };
 
+  const couponHandler=(e)=>{
+    console.log(e.target.value)
+    if(couponCode==='BOGO500'){
+     setCoupon(true)
+    }
+    else{
+      alert('Coupon Code not Valid!!')
+    }
+  }
   const addToCartHandler=async()=>{
+    coupon?ProductData.price=ProductData.price-500:ProductData.price=ProductData.price;
+    console.log('----product---',ProductData);
     const response=await addToCart(ProductData,quantity,userId)
     console.log("response",response)
     if(response.status===200){
       alert("Item Added To Cart Successfully!")
+      navigate('/cart')
     }
     else if(response.status===201){
     alert("Item Added To Cart Successfully!")
     }
   }
-   console.log('----product---',ProductData);
   return (
     <>
       <Fragment>
@@ -74,7 +89,7 @@ const SpecificProduct = () => {
               <span>{`(${ProductData?.ReviewsCount}Reviews)`}</span>
             </div>
             <div className="detailsBlock-3">
-              <h1>{`₹${ProductData?.price}`}</h1>
+              <h1>{coupon?`₹${ProductData?.price-500}`:`₹${ProductData?.price}`}</h1>
               <div className="detailsBlock-3-1">
                 <div className="detailsBlock-3-1-1">
                   <button onClick={decreaseQuantity}>-</button>
@@ -89,7 +104,7 @@ const SpecificProduct = () => {
                 </button>
               </div>
               <p>
-                Status:
+                Status:&nbsp;&nbsp;
                 <b
                   className={ProductData?.Stock < 1 ? "redColor" : "greenColor"}
                 >
@@ -98,11 +113,12 @@ const SpecificProduct = () => {
               </p>
             </div>
             <div className="detailsBlock-4">
+               Coupons: <input type="text" className="coupon" onChange={(e)=>setCouponCode(e.target.value)}/>&nbsp;&nbsp;
+                 {coupon?<Button type="primary" style={{backgroundColor:'black',color:'white'}} onClick={(e)=>couponHandler(e)} disabled>Apply Coupon</Button>:<Button type="primary" style={{backgroundColor:'black',color:'white'}} onClick={(e)=>couponHandler(e)}>Apply Coupon</Button>}<br/>
                 Description : <p>{ProductData?.description}</p>
               </div>
           </div>
         </div>
-        <h3 className="reviewsHeading">REVIEWS</h3>
       </Fragment>
     </>
   );
