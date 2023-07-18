@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CheckOutSteps from "./CheckOutSteps";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -12,41 +12,41 @@ import { updateProduct } from "../Services/updateStock.service";
 import { updatePurchaseCount } from "../Services/updatePurchaseCount.service";
 const BuyNow = () => {
   const order = useSelector((state) => state.orders.CurrentOrderPlaced);
-  console.log('----placed order',order);
-  const orderItems=useSelector((state)=>state.cart.CartItems);
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  console.log('-------orderItems----',orderItems)
-  let subTotal=0;
+  console.log("----placed order", order);
+  const orderItems = useSelector((state) => state.cart.CartItems);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  console.log("-------orderItems----", orderItems);
+  let subTotal = 0;
   const username = useSelector(
     (state) => state.authentication.loggedInUserName
   );
-  const updateStock=async()=>{
-    orderItems?.map(async(item)=>{
-     await updateProduct(item.Order._id,item.Order.Stock-item.Quantity);
-    })
-  }
-  const PurchaseCount=()=>{
-    orderItems?.map(async(item)=>{
-      await updatePurchaseCount(item.Order._id,item.Order.PurchaseCount+1);
-     })
-  }
-  const cancelHandler=async()=>{
-    order?.map(async(item)=>{
-      const res=await removeSpecificOrder(item._id);
-      console.log('----res---',res);
-    })
-    dispatch(removeOrder())
-    navigate('/home')
-  }
-  const proceedHandler=async()=>{
+  const updateStock = async () => {
+    orderItems?.map(async (item) => {
+      await updateProduct(item.Order._id, item.Order.Stock - item.Quantity);
+    });
+  };
+  const PurchaseCount = () => {
+    orderItems?.map(async (item) => {
+      await updatePurchaseCount(item.Order._id, item.Order.PurchaseCount + 1);
+    });
+  };
+  const cancelHandler = async () => {
+    order?.map(async (item) => {
+      const res = await removeSpecificOrder(item._id);
+      console.log("----res---", res);
+    });
+    dispatch(removeOrder());
+    navigate("/home");
+  };
+  const proceedHandler = async () => {
     updateStock();
     PurchaseCount();
     await removeCartItems(orderItems);
     dispatch(removeReduxCart());
-    dispatch(removeOrder())
-    navigate('/confirm')
-  }
+    dispatch(removeOrder());
+    navigate("/confirm");
+  };
   const date = new Date();
   const monthNames = [
     "January",
@@ -64,8 +64,8 @@ const BuyNow = () => {
   ];
   return (
     <>
-    <NavBar/>
-    <CheckOutSteps activeStep={1}/>
+      <NavBar />
+      <CheckOutSteps activeStep={1} />
       <div className="order-container">
         <div className="OrderPlaced">
           <div className="order-Confirm">
@@ -92,13 +92,15 @@ const BuyNow = () => {
             >
               {username}, please confirm your order!
             </div>
-            <span  style={{
+            <span
+              style={{
                 fontWeight: "400",
                 fontFamily: "Times New Roman",
                 display: "table",
                 margin: "auto",
                 marginTop: "20px",
-              }}>
+              }}
+            >
               Order will be delivered at {order[0]?.shippingInfo?.address}
             </span>
           </div>
@@ -116,7 +118,7 @@ const BuyNow = () => {
               <div className="order-desc">
                 <hr />
                 {order?.map((item, idx) => {
-                  subTotal+=item.Quantity*item.order.price
+                  subTotal += item.Quantity * item.order.price;
                   return (
                     <>
                       <div className="order-specific">
@@ -130,7 +132,9 @@ const BuyNow = () => {
                           </div>
                           <div className="order-price">
                             <div className="order-name">Category</div>
-                            <div className="order-name">{item.order.category}</div>
+                            <div className="order-name">
+                              {item.order.category}
+                            </div>
                           </div>
                           <hr />
                           <div className="order-price">
@@ -139,11 +143,15 @@ const BuyNow = () => {
                           </div>
                           <div className="order-price">
                             <div className="order-name">Price</div>
-                            <div className="order-name">₹{item.order.price}</div>
+                            <div className="order-name">
+                              ₹{item.order.price}
+                            </div>
                           </div>
                           <div className="order-price">
                             <div className="order-name">Vendor ID</div>
-                            <div className="order-name">#{item.order.CreatedBy}</div>
+                            <div className="order-name">
+                              #{item.order.CreatedBy}
+                            </div>
                           </div>
                           <div className="order-price">
                             <div className="order-name">Quantity</div>
@@ -177,9 +185,24 @@ const BuyNow = () => {
               <hr />
             </div>
             <div>
-            <Button style={{backgroundColor:"red",marginLeft:'10px',width:'100px'}} onClick={cancelHandler}>Cancel</Button>
-            <Button className='proceedBtn' type="primary" onClick={proceedHandler}>Proceed</Button>
-              </div>
+              <Button
+                style={{
+                  backgroundColor: "red",
+                  marginLeft: "10px",
+                  width: "100px",
+                }}
+                onClick={cancelHandler}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="proceedBtn"
+                type="primary"
+                onClick={proceedHandler}
+              >
+                Proceed
+              </Button>
+            </div>
           </div>
         </div>
       </div>

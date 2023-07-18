@@ -3,6 +3,7 @@ import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddress } from "../Services/updateUserAddress.service";
+import { selectAddress } from "../Features/AuthSlice";
 import { Country, State } from "country-state-city";
 import { CloseOutlined } from "@ant-design/icons";
 import { createOrder } from "../Services/createOrder.service";
@@ -13,24 +14,21 @@ const Address = () => {
   const dispatch = useDispatch();
   const orderItems = useSelector((state) => state.cart.CartItems);
   const user = useSelector((state) => state.authentication.loggedinUserId);
-  const savedAddress=useSelector((state) => state.authentication.loggedInUserAddress);
-  const savedState=useSelector((state) => state.authentication.loggedInUserState);
-  const savedCountry=useSelector((state) => state.authentication.loggedInUserCountry);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const loggedInUserId = useSelector((state) => state.authentication.loggedinUserId);
-  const [address, setAddress] = useState();
-  const [country, setCountry] = useState();
-  const [states, setStates] = useState();
-  const [pincode, setPincode] = useState();
+  const loggedInUserId = useSelector(
+    (state) => state.authentication.loggedinUserId
+  );
+  const [address, setAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [states, setStates] = useState("");
+  const [pincode, setPincode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   console.log("----cart----", orderItems);
   const handleSubmit = async (e) => {
     // Handle form submission logic here
     e.preventDefault();
-    // let ucountry=Country.getCountryByCode(country)
-    // let ustate=State.getStateByCodeAndCountry(states,country);
-    await updateAddress(loggedInUserId, address,country,states);
-    const shippingInfo = { address:address??savedAddress, country:country??savedCountry,states:states??savedState,pincode, phoneNumber };
+    await updateAddress(loggedInUserId, Address);
+    const shippingInfo = { address, country, states, pincode, phoneNumber };
     orderItems.map(async (item) => {
       let subTotal = item.Order.price * item.Quantity;
       const response = await createOrder(
@@ -43,16 +41,16 @@ const Address = () => {
       console.log("-----order---", response);
       dispatch(placedOrder(response.data.orders));
     });
+
+    dispatch(selectAddress(Address));
     setAddress("");
-    setCountry("");
-    setStates("");
     navigate("/buy");
+    console.log(address, country, states, pincode, phoneNumber);
   };
   const handleCancel = () => {
     navigate("/cart");
     setIsModalOpen(false);
   };
-  console.log(savedAddress)
   return (
     <>
       <CheckOutSteps activeStep={0} />
@@ -68,20 +66,19 @@ const Address = () => {
             style={{ padding: "15px" }}
             type="text"
             id="address"
-            value={address??savedAddress}
+            value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
           />
-          <label htmlFor="countries">Country:</label>
           <select
-             value={country??savedCountry}
+            value={country}
             onChange={(e) => setCountry(e.target.value)}
             menuPlacement="top"
             required
-            className="countries"
+            className="country"
           >
             <option value="">Country</option>
-            {(savedCountry??Country )&&
+            {Country &&
               Country.getAllCountries().map((item) => {
                 return (
                   <option key={item.isoCode} value={item.isoCode}>
@@ -91,19 +88,17 @@ const Address = () => {
               })}
           </select>
           <br />
-          {/* select for state */}
-          <label htmlFor="countries">State:</label>
-          {(country??savedState) && (
+          {country && (
             <select
-              value={states??savedState}
+              value={states}
               onChange={(e) => setStates(e.target.value)}
               menuPlacement="top"
               required
-              className="countries"
+              className="country"
             >
               <option value="">State</option>
               {State &&
-                State.getStatesOfCountry(country??savedCountry).map((item) => {
+                State.getStatesOfCountry(country).map((item) => {
                   return (
                     <option key={item.isoCode} value={item.isoCode}>
                       {item.name}
@@ -112,7 +107,6 @@ const Address = () => {
                 })}
             </select>
           )}
-          <br/>
           <label htmlFor="pincode">Pincode:</label>
           <input
             style={{ padding: "15px" }}

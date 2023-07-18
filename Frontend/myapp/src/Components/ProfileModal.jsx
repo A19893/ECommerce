@@ -1,34 +1,36 @@
-import React,{useState} from 'react'
+import React, { useState } from "react";
 import { Modal } from "antd";
 import { Upload } from "antd";
 import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import dummy from '../Assets/60111.jpg'
+import { useSelector } from "react-redux";
+import dummy from "../Assets/60111.jpg";
 const ProfileModal = (props) => {
-    console.log(props.image)
-    const navigate=useNavigate();
-    const userRole=useSelector((state)=>state.authentication.loggedInUserRole);
-    const [isModalOpen, setIsModalOpen] = useState(true);
-    const handleOk = () => {
-        setIsModalOpen(false);
-      };
-      const handleCancel = () => {
-        setIsModalOpen(false);
-        navigate('/home');
-      };
-      const [fileList, setFileList] = useState([]);
-      const handleChange = ({ file: newFile, fileList: newFileList }) => {
-        setFileList(newFileList);
-        newFile.status === "done" &&
-          props.setImage(`http://localhost:5000/${newFile.response}`);
-      };
-      const [form] = Form.useForm();
-      const [formLayout, setFormLayout] = useState("horizontal");
+  console.log(props.image);
+  const navigate = useNavigate();
+  const userRole = useSelector(
+    (state) => state.authentication.loggedInUserRole
+  );
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    navigate("/home");
+  };
+  const [fileList, setFileList] = useState([]);
+  const handleChange = ({ file: newFile, fileList: newFileList }) => {
+    setFileList(newFileList);
+    newFile.status === "done" &&
+      props.setImage(`http://localhost:5000/${newFile.response}`);
+  };
+  const [form] = Form.useForm();
+  const [formLayout, setFormLayout] = useState("horizontal");
   const onFormLayoutChange = ({ layout }) => {
     setFormLayout(layout);
   };
-      const formItemLayout =
+  const formItemLayout =
     formLayout === "horizontal"
       ? {
           labelAlign: "left",
@@ -54,33 +56,57 @@ const ProfileModal = (props) => {
         <div className="profile-leftPart">
           <div className="profile-Img">
             <div className="upload-img">
-               { props.image==='Avatar'?<img src={dummy} alt="Missing" className='avatar'/>:<img src={props.image} alt="Missing" className='avatar'/>}<br/><br/>
+              {props.image === "Avatar" ? (
+                <img src={dummy} alt="Missing" className="avatar" />
+              ) : (
+                <img src={props.image} alt="Missing" className="avatar" />
+              )}
+              <br />
+              <br />
               <Upload
-              action="http://localhost:5000/uploads"
-            //   listType="picture-circle"
-              fileList={fileList}
-              showUploadList={false}
-              onChange={handleChange}
-              name='image'
+                action="http://localhost:5000/uploads"
+                //   listType="picture-circle"
+                fileList={fileList}
+                showUploadList={false}
+                onChange={handleChange}
+                name="image"
               >
                 {/* {fileList.length >= 1 ? null : props.uploadButton} */}
-                <button style={{marginTop:'35px',marginLeft:'15px'}}>User Image</button>
+                <button style={{ marginTop: "35px", marginLeft: "15px" }}>
+                  User Image
+                </button>
               </Upload>
             </div>
-            {userRole==='Vendor'?<div className="upload-img">
-               { props.image==='Avatar'?<img src={dummy} alt="Missing" className='avatar'/>:<img src={props.companyLogo} alt="Missing" className='avatar'/>}<br/><br/>
-              <Upload
-              action="http://localhost:5000/uploads"
-            //   listType="picture-circle"
-              fileList={fileList}
-              showUploadList={false}
-              onChange={handleChange}
-              name='image'
-              >
-                {/* {fileList.length >= 1 ? null : props.uploadButton} */}
-                <button style={{marginTop:'30px',marginLeft:'10px'}}>Business Logo</button>
-              </Upload>
-            </div>:""}
+            {userRole === "Vendor" ? (
+              <div className="upload-img">
+                {props.image === "Avatar" ? (
+                  <img src={dummy} alt="Missing" className="avatar" />
+                ) : (
+                  <img
+                    src={props.companyLogo}
+                    alt="Missing"
+                    className="avatar"
+                  />
+                )}
+                <br />
+                <br />
+                <Upload
+                  action="http://localhost:5000/uploads"
+                  //   listType="picture-circle"
+                  fileList={fileList}
+                  showUploadList={false}
+                  onChange={handleChange}
+                  name="image"
+                >
+                  {/* {fileList.length >= 1 ? null : props.uploadButton} */}
+                  <button style={{ marginTop: "30px", marginLeft: "10px" }}>
+                    Business Logo
+                  </button>
+                </Upload>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="profile-Links">
             <ul>
@@ -201,22 +227,42 @@ const ProfileModal = (props) => {
             onValuesChange={onFormLayoutChange}
           >
             <Form.Item label="Name">
-              <Input placeholder="Enter Name"  value={props.name} onChange={(e)=>props.setName(e.target.value)} />
+              <Input
+                placeholder="Enter Name"
+                value={props.name}
+                onChange={(e) => props.setName(e.target.value)}
+              />
             </Form.Item>
             {props.user?.address === "Address" ? (
               <Form.Item label="Address">
-                <Input value={props.address} placeholder="Update Address" onChange={(e)=>props.setAddress(e.target.value)} />
+                <Input
+                  value={props.address}
+                  placeholder="Update Address"
+                  onChange={(e) => props.setAddress(e.target.value)}
+                />
               </Form.Item>
             ) : (
               <Form.Item label="Address">
-                <Input placeholder="Enter Address" value={props.address} onChange={(e)=>props.setAddress(e.target.value)}/>
+                <Input
+                  placeholder="Enter Address"
+                  value={props.address}
+                  onChange={(e) => props.setAddress(e.target.value)}
+                />
               </Form.Item>
             )}
             <Form.Item label="Email">
-              <Input placeholder="Enter Email" value={props.email} onChange={(e)=>props.setEmail(e.target.value)} />
+              <Input
+                placeholder="Enter Email"
+                value={props.email}
+                onChange={(e) => props.setEmail(e.target.value)}
+              />
             </Form.Item>
             <Form.Item label="Password">
-              <Input placeholder="Enter Password" value={props.password} onChange={(e)=>props.setPassword(e.target.value)}/>
+              <Input
+                placeholder="Enter Password"
+                value={props.password}
+                onChange={(e) => props.setPassword(e.target.value)}
+              />
             </Form.Item>
             <Form.Item>
               <Button
@@ -235,7 +281,7 @@ const ProfileModal = (props) => {
         </div>
       </div>
     </Modal>
-  )
-}
+  );
+};
 
-export default ProfileModal
+export default ProfileModal;

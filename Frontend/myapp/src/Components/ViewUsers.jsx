@@ -23,13 +23,13 @@ const ViewUsers = () => {
     setIsModalOpen(false);
     navigate("/dashBoard");
   };
-  const handleUpdate=async(item,status)=>{
-    const response=await updateStatus(item._id,status);
-    if(response.status===200){
-        alert("User Status Updated Successfully");
-        navigate('/viewUsers');
+  const handleUpdate = async (item, status) => {
+    const response = await updateStatus(item._id, status);
+    if (response.status === 200) {
+      alert("User Status Updated Successfully");
+      navigate("/viewUsers");
     }
-  }
+  };
   const columns = [
     {
       title: "User Id",
@@ -70,29 +70,31 @@ const ViewUsers = () => {
       key: "status",
       render: (text) => (
         <>
-          {
-            text.status==='Active'?<span
-            style={{
-              color: "blue",
-              cursor: "pointer",
-              fontSize: "20px",
-              marginRight: "15px",
-            }}
-            onClick={() => handleUpdate(text,'Deactivate')}
-          >
-            Disable
-          </span>:<span
-            style={{
-              color: "blue",
-              cursor: "pointer",
-              fontSize: "20px",
-              marginRight: "15px",
-            }}
-            onClick={() => handleUpdate(text,'Active')}
-          >
-            Enable
-          </span>
-    }
+          {text.status === "Active" ? (
+            <span
+              style={{
+                color: "blue",
+                cursor: "pointer",
+                fontSize: "20px",
+                marginRight: "15px",
+              }}
+              onClick={() => handleUpdate(text, "Deactivate")}
+            >
+              Disable
+            </span>
+          ) : (
+            <span
+              style={{
+                color: "blue",
+                cursor: "pointer",
+                fontSize: "20px",
+                marginRight: "15px",
+              }}
+              onClick={() => handleUpdate(text, "Active")}
+            >
+              Enable
+            </span>
+          )}
         </>
       ),
     },

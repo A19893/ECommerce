@@ -1,33 +1,47 @@
 import { useEffect, useState, Fragment } from "react";
 import { useLocation } from "react-router-dom";
-import { getSpecificProduct } from "../Services/getSpecificProduct.service";
 import Carousel from "react-material-ui-carousel";
-import { Rate,Button } from "antd";
+import { Rate, Button, message } from "antd";
 import { addToCart } from "../Services/addToCart.service";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const SpecificProduct = () => {
   const { state } = useLocation();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const dispatch=useDispatch();
   const [ProductData, setProductData] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const[coupon,setCoupon]=useState(false);
-  const [couponCode,setCouponCode]=useState('')
-  const userId=useSelector((state)=>state.authentication.loggedinUserId);
-  console.log(userId)
+  const [coupon, setCoupon] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
+  const [clicked, setClicked] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const userId = useSelector((state) => state.authentication.loggedinUserId);
+  const products=useSelector((state)=>(state.product.Products));
+  console.log(userId);
   useEffect(() => {
     const getData = async () => {
-      const response = await getSpecificProduct(state);
-      setProductData(response.data.result);
+      const FilteredData=products.filter((item)=>{
+        return item._id===state;
+      })
+       setProductData(FilteredData[0]);
+      // console.log(FilteredData)
     };
     getData();
   }, []);
+  console.log(ProductData)
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Item Item Added To Cart Successully!!",
+      duration: 5,
+    });
+  };
   const increaseQuantity = () => {
-    if (ProductData?.Stock <= quantity) 
-    alert("We don't have more quantity in stock")
-    else{
-    const qty = quantity + 1;
-    setQuantity(qty);
+    if (ProductData?.Stock <= quantity)
+      alert("We don't have more quantity in stock");
+    else {
+      const qty = quantity + 1;
+      setQuantity(qty);
     }
   };
 
@@ -38,30 +52,38 @@ const SpecificProduct = () => {
     setQuantity(qty);
   };
 
-  const couponHandler=(e)=>{
-    console.log(e.target.value)
-    if(couponCode==='BOGO500'){
-     setCoupon(true)
+  const couponHandler = (e) => {
+    console.log(e.target.value);
+    (setProductData(p=>({...p,price:(p?.price-500)})))
+    if (couponCode === "BOGO500") {
+      setCoupon(true);
+    } else {
+      alert("Coupon Code not Valid!!");
     }
-    else{
-      alert('Coupon Code not Valid!!')
+  };
+  const addToCartHandler = async () => {
+    setClicked(true);
+    console.log("----product---", ProductData);
+    const response = await addToCart(ProductData, quantity, userId);
+    console.log("response", response);
+    if (response.status === 200) {
+      success();
+      setTimeout(() => {
+        setClicked(false);
+        navigate("/cart");
+      }, 1000);
+    } 
+    else if (response.status === 201) {
+      success();
+      setTimeout(() => {
+        setClicked(false);
+        navigate("/cart");
+      }, 1000);
     }
-  }
-  const addToCartHandler=async()=>{
-    coupon?ProductData.price=ProductData.price-500:ProductData.price=ProductData.price;
-    console.log('----product---',ProductData);
-    const response=await addToCart(ProductData,quantity,userId)
-    console.log("response",response)
-    if(response.status===200){
-      alert("Item Added To Cart Successfully!")
-      navigate('/cart')
-    }
-    else if(response.status===201){
-    alert("Item Added To Cart Successfully!")
-    }
-  }
+  };
   return (
     <>
+      {contextHolder}
       <Fragment>
         <div className="ProductDetails">
           <div>
@@ -89,7 +111,9 @@ const SpecificProduct = () => {
               <span>{`(${ProductData?.ReviewsCount}Reviews)`}</span>
             </div>
             <div className="detailsBlock-3">
-              <h1>{coupon?`₹${ProductData?.price-500}`:`₹${ProductData?.price}`}</h1>
+              <h1>
+              ₹{ProductData?.price}
+              </h1>
               <div className="detailsBlock-3-1">
                 <div className="detailsBlock-3-1-1">
                   <button onClick={decreaseQuantity}>-</button>
@@ -97,8 +121,14 @@ const SpecificProduct = () => {
                   <button onClick={increaseQuantity}>+</button>
                 </div>
                 <button
-                  disabled={ProductData?.Stock < 1 ? true : false}
-                   onClick={addToCartHandler}
+                  disabled={
+                    ProductData?.Stock < 1
+                      ? true
+                      : false || clicked===true
+                      ? true
+                      : false
+                  }
+                  onClick={addToCartHandler}
                 >
                   Add to Cart
                 </button>
@@ -113,10 +143,34 @@ const SpecificProduct = () => {
               </p>
             </div>
             <div className="detailsBlock-4">
-               Coupons: <input type="text" className="coupon" onChange={(e)=>setCouponCode(e.target.value)}/>&nbsp;&nbsp;
-                 {coupon?<Button type="primary" style={{backgroundColor:'black',color:'white'}} onClick={(e)=>couponHandler(e)} disabled>Apply Coupon</Button>:<Button type="primary" style={{backgroundColor:'black',color:'white'}} onClick={(e)=>couponHandler(e)}>Apply Coupon</Button>}<br/>
-                Description : <p>{ProductData?.description}</p>
-              </div>
+              Coupons:{" "}
+              <input
+                type="text"
+                className="coupon"
+                onChange={(e) => setCouponCode(e.target.value)}
+              />
+              &nbsp;&nbsp;
+              {coupon ? (
+                <Button
+                  type="primary"
+                  style={{ backgroundColor: "black", color: "white" }}
+                  onClick={(e) => couponHandler(e)}
+                  disabled
+                >
+                  Apply Coupon
+                </Button>
+              ) : (
+                <Button
+                  type="primary"
+                  style={{ backgroundColor: "black", color: "white" }}
+                  onClick={(e) => couponHandler(e)}
+                >
+                  Apply Coupon
+                </Button>
+              )}
+              <br />
+              Description : <p>{ProductData?.description}</p>
+            </div>
           </div>
         </div>
       </Fragment>

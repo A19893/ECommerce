@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../Config/Firebase";
 import { checkUser } from "../Services/checkBeforeLogin.service";
-import {message } from "antd";
+import { message } from "antd";
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,16 +27,16 @@ const Signup = () => {
   // };
   const error = (message) => {
     messageApi.open({
-      type: 'error',
+      type: "error",
       content: message,
-      duration:5
+      duration: 5,
     });
   };
   const warning = (message) => {
     messageApi.open({
-      type: 'warning',
+      type: "warning",
       content: message,
-      duration:5
+      duration: 5,
     });
   };
   const handleInputChange = (e) => {
@@ -44,22 +44,21 @@ const Signup = () => {
     setNumberError("");
     if (e.target.value.length > 10) {
       setNumberError("Max Length 10 are allowed");
-    } 
-    else if(!isNaN(e.target.value)){
+    } else if (!isNaN(e.target.value)) {
       setNumber("");
       setNumber(e.target.value);
-    }
-    else{
-     
+    } else {
     }
   };
   //This function is used to register a user manually
   const onManualSignup = async (e) => {
     e.preventDefault();
     if (name === "") {
-      warning("Please Fill Name!!")
+      warning("Please Fill Name!!");
     } else if (password.length <= 6 || password.length > 10) {
-      warning( "Password should be greater than 6 characters and less than 9 characters!!");
+      warning(
+        "Password should be greater than 6 characters and less than 9 characters!!"
+      );
     } else if (emailError !== "Valid Email :)") {
       warning("Please fill email properly!!");
     } else {
@@ -72,12 +71,13 @@ const Signup = () => {
             email: res.data.creation.email,
             address: res.data.creation.address,
             name: res.data.creation.name,
+            country: res.data.creation.country,
+            state: res.data.creation.state,
           })
         );
         // success("You are registered successfully!!");
-          navigate("/role");
-      }
-      else if (res.status === 203) {
+        navigate("/role");
+      } else if (res.status === 203) {
         error("You are already a Registered User!!");
         // navigate("/login");
       }
@@ -110,6 +110,8 @@ const Signup = () => {
               email: res.data.creation.email,
               address: res.data.creation.address,
               name: res.data.creation.name,
+              country: res.data.creation.country,
+              state: res.data.creation.state,
             })
           );
           navigate("/role");
@@ -128,6 +130,8 @@ const Signup = () => {
               email: data.result.email,
               address: data.result.address,
               name: data.result.name,
+              country: data.result.country,
+              state: data.result.state,
             })
           );
           dispatch(selectRole(data.result.role));
@@ -140,22 +144,22 @@ const Signup = () => {
   };
   return (
     <>
-    {contextHolder}
-    <SignupDisplay
-      name={name}
-      password={password}
-      email={email}
-      setName={setName}
-      setPassword={setPassword}
-      setEmail={setEmail}
-      onManualSignup={onManualSignup}
-      signInGoogle={signInGoogle}
-      handleInputChange={handleInputChange}
-      numberError={numberError}
-      number={number}
-      emailError={emailError}
-      setEmailError={setEmailError}
-    />
+      {contextHolder}
+      <SignupDisplay
+        name={name}
+        password={password}
+        email={email}
+        setName={setName}
+        setPassword={setPassword}
+        setEmail={setEmail}
+        onManualSignup={onManualSignup}
+        signInGoogle={signInGoogle}
+        handleInputChange={handleInputChange}
+        numberError={numberError}
+        number={number}
+        emailError={emailError}
+        setEmailError={setEmailError}
+      />
     </>
   );
 };

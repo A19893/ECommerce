@@ -1,28 +1,28 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Capture from "../Assets/Capture.PNG";
 import { UserOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
 import { LockOutlined } from "@ant-design/icons";
 import { LoginOutlined, GoogleOutlined, PhoneFilled } from "@ant-design/icons";
 import { Input, Button } from "antd";
-import {Link} from 'react-router-dom'
-import validator from 'validator'
+import { Link } from "react-router-dom";
+import validator from "validator";
 import "react-phone-number-input/style.css";
 const SignupDisplay = (props) => {
   // Email Validation
-const validateEmail = (e) => {
-  var email = e.target.value
+  const validateEmail = (e) => {
+    var email = e.target.value;
 
-  if (validator.isEmail(email)) {
-    props. setEmailError('Valid Email :)')
-  } else {
-     props.setEmailError('Enter valid Email!');
-  }
-}
-  const handleChange=(e)=>{
-    props.setEmail(e.target.value)
-    validateEmail(e)
-  }
+    if (validator.isEmail(email)) {
+      props.setEmailError("Valid Email :)");
+    } else {
+      props.setEmailError("Enter valid Email!");
+    }
+  };
+  const handleChange = (e) => {
+    props.setEmail(e.target.value);
+    validateEmail(e);
+  };
   return (
     <div className="container">
       <div className="signupContainer">
@@ -43,8 +43,7 @@ const validateEmail = (e) => {
                 }}
                 placeholder="   Username"
                 prefix={<UserOutlined />}
-                onChange={(e)=>props.setName(e.target.value)}
-                
+                onChange={(e) => props.setName(e.target.value)}
                 value={props.name}
               />
               <br />
@@ -61,7 +60,9 @@ const validateEmail = (e) => {
                 onChange={handleChange}
                 value={props.email}
               />
-              <span style={{ fontWeight: 'bold', color: 'red' }}>{props.emailError}</span>
+              <span style={{ fontWeight: "bold", color: "red" }}>
+                {props.emailError}
+              </span>
               <br />
               <br />
               <Input
@@ -78,9 +79,11 @@ const validateEmail = (e) => {
                 value={props.number}
                 required
               />
-              <span style={{ fontWeight: 'bold', color: 'red' }}>{props.numberError}</span>
-              <br/>
-              <br/>
+              <span style={{ fontWeight: "bold", color: "red" }}>
+                {props.numberError}
+              </span>
+              <br />
+              <br />
               <Input
                 size="large"
                 style={{
@@ -90,15 +93,19 @@ const validateEmail = (e) => {
                 }}
                 placeholder="   Password"
                 prefix={<LockOutlined />}
-                onChange={(e)=>props.setPassword(e.target.value)}
+                onChange={(e) => props.setPassword(e.target.value)}
                 value={props.password}
                 required
               />
-              <br/>
-              <span className="navLogin"><Link style={{color:"rgb(23, 74, 132)"}}to="/login">Already a Registered User?</Link></span>
+              <br />
+              <span className="navLogin">
+                <Link style={{ color: "rgb(23, 74, 132)" }} to="/login">
+                  Already a Registered User?
+                </Link>
+              </span>
               <br />
               <br />
-              <div style={{justifyContent:'space-between'}}>
+              <div style={{ justifyContent: "space-between" }}>
                 <Button
                   type="primary"
                   icon={<LoginOutlined />}
@@ -107,18 +114,18 @@ const validateEmail = (e) => {
                 >
                   Sign Up
                 </Button>
-              <Button
-                type="primary"
-                icon={<GoogleOutlined />}
-                style={{
-                  paddingLeft: "10px",
-                  marginLeft: "140px",
-                  height: "40px",
-                }}
-                onClick={props.signInGoogle}
-              >
-                Sign In with Google
-              </Button>
+                <Button
+                  type="primary"
+                  icon={<GoogleOutlined />}
+                  style={{
+                    paddingLeft: "10px",
+                    marginLeft: "140px",
+                    height: "40px",
+                  }}
+                  onClick={props.signInGoogle}
+                >
+                  Sign In with Google
+                </Button>
               </div>
             </div>
           </div>
@@ -126,6 +133,6 @@ const validateEmail = (e) => {
       </div>
     </div>
   );
-}
+};
 
 export default SignupDisplay;

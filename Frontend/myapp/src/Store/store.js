@@ -6,6 +6,7 @@ import AuthSlice from "../Features/AuthSlice";
 import CartSlice from "../Features/CartSlice";
 import thunk from 'redux-thunk'
 import OrderSlice from "../Features/OrderSlice";
+import ProductSlice from "../Features/ProductSlice";
 const persistConfig={
     key:'root',
     version:1,
@@ -14,7 +15,8 @@ const persistConfig={
 const rootReducer=combineReducers({
  authentication:AuthSlice,
  cart:CartSlice,
- orders:OrderSlice
+ orders:OrderSlice,
+ product:ProductSlice
 })
 const persistedReducer=persistReducer(persistConfig,rootReducer);
 export const store=configureStore({

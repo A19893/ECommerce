@@ -10,11 +10,11 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [image, setImage] = useState(null);
   const [name, setName] = useState(null);
-  const [address,setAddress] = useState(null);
+  const [address, setAddress] = useState(null);
   const [password, setPassword] = useState(null);
   const [email, setEmail] = useState(null);
-  const navigate=useNavigate();
-  let urls=null;
+  const navigate = useNavigate();
+  let urls = null;
   // {user?.avatar==='avatar'?urls='https://img.freepik.com/free-icon/user_318-159711.jpg':urls=user?.avatar};
   // console.log('------urls--',urls);
   // const [fileList, setFileList] = useState([]);
@@ -47,14 +47,14 @@ const Profile = () => {
       </div>
     </div>
   );
-  const handleUpdate=async()=>{
-    console.log('----data---',name,address,password,email);
-    const res=await updateUser(userId,name,address,password,email,image);
-    if(res.status===200){
+  const handleUpdate = async () => {
+    console.log("----data---", name, address, password, email);
+    const res = await updateUser(userId, name, address, password, email, image);
+    if (res.status === 200) {
       alert("Updated Successfully");
-       navigate('/home');
+      navigate("/home");
     }
-  }
+  };
   useEffect(() => {
     const getData = async () => {
       const data = await getSpecificUser(userId);
@@ -62,11 +62,23 @@ const Profile = () => {
     };
     getData();
   });
-  console.log('-image---',image)
+  console.log("-image---", image);
   return (
-    <ProfileModal   uploadButton={uploadButton} name={name} setName={setName}
-        setAddress={setAddress} address={address} image={image} setImage={setImage} handleUpdate={handleUpdate} user={user} 
-         email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
+    <ProfileModal
+      uploadButton={uploadButton}
+      name={name}
+      setName={setName}
+      setAddress={setAddress}
+      address={address}
+      image={image}
+      setImage={setImage}
+      handleUpdate={handleUpdate}
+      user={user}
+      email={email}
+      setEmail={setEmail}
+      password={password}
+      setPassword={setPassword}
+    />
   );
 };
 

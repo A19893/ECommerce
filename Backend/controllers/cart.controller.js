@@ -8,32 +8,19 @@ exports.addToCart=async(req,res)=>{
     
     const prevOrderId = Order._id;
     // console.log('-----prevOrderId-- :',  prevOrderId,'-------purchasedby', PurchasedBy);
-    const result= await Cart.findOne({'Order._id':prevOrderId });
+    const result= await Cart.findOne({$and:[{PurchasedBy:PurchasedBy},{'Order._id':prevOrderId }]});
     // console.log('-------result------')
-    console.log(result);
-    if(result!=null){
-         console.log('-------[purchase]------',PurchasedBy,'-------[purchase]------',result.PurchasedBy.toString())
-        if(result.PurchasedBy.toString()===PurchasedBy){
+    // console.log(result);
+    if(result){
+        //  console.log('-------[purchase]------',PurchasedBy,'-------[purchase]------',result.PurchasedBy.toString())
             // console.log('----ayaaa');
-         result.Quantity+=Quantity
+         result.Quantity+=Quantity;
+        //  console.log('PREVpRICE',result.Order.price,'newQuant',Quantity,'newPrice',Order.price);
          await result.save({validateBeforeSave:false});
         return res.status(201).json({
         success:true,
         message:"Added To Cart",
        })
-        }
-        else{
-            const cart=await Cart.create({
-                Order,
-                Quantity,
-                PurchasedBy
-            })
-            return res.status(200).json({
-                success:true,
-                message:"Added To Cart",
-                cart
-            }) 
-        }
     }
     else{
     const cart=await Cart.create({
@@ -51,7 +38,7 @@ exports.addToCart=async(req,res)=>{
 //Function for getting all cart items
 exports.getCartItems=async(req,res)=>{
 const OrdersInCart=await Cart.find({})
-console.log('----getItems',OrdersInCart);
+// console.log('----getItems',OrdersInCart);
 return res.status(200).json({
     success:true,
     OrdersInCart

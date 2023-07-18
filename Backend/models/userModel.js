@@ -42,6 +42,16 @@ const userSchema=new mongoose.Schema({
         type:String,
         default:'Address'
     },
+    state:{
+        type:String,
+        required:true,
+        default:'State',
+    },
+    country:{
+        type:String,
+        required:true,
+        default:'Country',
+    },
     number:{
         type:String,
         default:'Number'
