@@ -29,4 +29,6 @@ const orders=require("./routes/orderRoute")
 app.use("/orders",orders)
 const cart=require("./routes/cartRoutes");
 app.use("/cart",cart)
+const Chat=require('./routes/chatRoutes');
+app.use("/Chat",Chat)
 module.exports=app;

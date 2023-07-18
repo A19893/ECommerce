@@ -36,9 +36,16 @@ const SpecificProduct = () => {
       duration: 5,
     });
   };
+  const warning = (message) => {
+    messageApi.open({
+      type: 'warning',
+      content: message,
+      duration:5
+    });
+  };
   const increaseQuantity = () => {
     if (ProductData?.Stock <= quantity)
-      alert("We don't have more quantity in stock");
+      warning("We don't have more quantity in stock");
     else {
       const qty = quantity + 1;
       setQuantity(qty);

@@ -169,9 +169,18 @@ const NavBar = (props) => {
           ]}
         />
       </div>
-      <div className="logoutButton" onClick={()=>navigate('/chat')}>
+     {userRole!=='Admin' &&<div className="logoutButton" onClick={()=>navigate('/chat')}>
         <HeadsetMicIcon/>
-      </div>
+      </div>}
+      {
+        userRole==='Admin' && <div className="myOrders"> <Button
+        icon={<HeadsetMicIcon />}
+        style={{ height: "40px", fontSize: "20px", fontWeight: "600" }}
+        onClick={()=>navigate('/viewChats')}
+      >
+        Chats
+      </Button></div>
+      }
       <Modal
         width={700}
         title="Your Orders"

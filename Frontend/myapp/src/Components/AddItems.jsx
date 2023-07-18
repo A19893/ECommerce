@@ -20,6 +20,13 @@ const AddItems = (image) => {
       duration: 5,
     });
   };
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Please Upload minimum 4 images",
+      duration: 5,
+    });
+  };
   const addProduct = async () => {
     console.log("--length--", image.image?.length);
     if (
@@ -45,7 +52,7 @@ const AddItems = (image) => {
         Status
       );
       if (response.status === 201) {
-        alert("Item Added Successfully");
+        success("Item Added Successfully");
         navigate("/home");
       }
     }
@@ -72,7 +79,7 @@ const AddItems = (image) => {
       Status
     );
     if (response.status === 201) {
-      alert("Item Added to Draft");
+      success("Item Added to Draft");
       navigate("/home");
     }
   };
