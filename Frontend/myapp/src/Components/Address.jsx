@@ -8,6 +8,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { createOrder } from "../Services/createOrder.service";
 import { placedOrder } from "../Features/OrderSlice";
 import CheckOutSteps from "./CheckOutSteps";
+import { setReduxAddress } from "../Features/AuthSlice";
 const Address = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,12 +24,11 @@ const Address = () => {
   const [states, setStates] = useState();
   const [pincode, setPincode] = useState();
   const [phoneNumber, setPhoneNumber] = useState("");
-  console.log("----cart----", orderItems);
+  // console.log("----cart----", orderItems);
   const handleSubmit = async (e) => {
     // Handle form submission logic here
     e.preventDefault();
-    // let ucountry=Country.getCountryByCode(country)
-    // let ustate=State.getStateByCodeAndCountry(states,country);
+    dispatch(setReduxAddress({address,country,states}));
     await updateAddress(loggedInUserId, address,country,states);
     const shippingInfo = { address:address??savedAddress, country:country??savedCountry,states:states??savedState,pincode, phoneNumber };
     orderItems.map(async (item) => {

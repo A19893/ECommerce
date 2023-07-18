@@ -41,6 +41,7 @@ const SignupDisplay = (props) => {
                   boxShadow: " 0 10px 10px -5px rgba(0, 0, 0, 0.4)",
                   padding: "15px",
                 }}
+                maxLength={15}
                 placeholder="   Username"
                 prefix={<UserOutlined />}
                 onChange={(e) => props.setName(e.target.value)}
@@ -55,6 +56,7 @@ const SignupDisplay = (props) => {
                   boxShadow: " 0 10px 10px -5px rgba(0, 0, 0, 0.4)",
                   padding: "15px",
                 }}
+                maxLength={30}
                 placeholder="    Email"
                 prefix={<MailOutlined />}
                 onChange={handleChange}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../Assets/Flipkart.PNG";
+import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import {
   LogoutOutlined,
   ShoppingCartOutlined,
@@ -167,6 +168,9 @@ const NavBar = (props) => {
             },
           ]}
         />
+      </div>
+      <div className="logoutButton" onClick={()=>navigate('/chat')}>
+        <HeadsetMicIcon/>
       </div>
       <Modal
         width={700}

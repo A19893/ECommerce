@@ -18,6 +18,7 @@ import ViewOrders from '../Components/ViewOrders'
 import UpdateOrder from '../Components/UpdateOrder'
 import ViewUsers from '../Components/ViewUsers'
 import ViewVendors from '../Components/ViewVendors'
+import Chat from '../Components/ChatRoom'
 export const publicRoutes=[
  {
     path:"/",
@@ -104,6 +105,10 @@ export const privateRoutes=[
     {
       path:'/viewVendors',
       element:<ViewVendors/>
+    },
+    {
+      path:'/chat',
+      element:<Chat/>
     },
     {
       path:"/*",

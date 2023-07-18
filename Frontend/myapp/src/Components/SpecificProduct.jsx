@@ -3,12 +3,12 @@ import { useLocation } from "react-router-dom";
 import Carousel from "react-material-ui-carousel";
 import { Rate, Button, message } from "antd";
 import { addToCart } from "../Services/addToCart.service";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const SpecificProduct = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const dispatch=useDispatch();
+  // const dispatch=useDispatch();
   const [ProductData, setProductData] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [coupon, setCoupon] = useState(false);

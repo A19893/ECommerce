@@ -1,11 +1,19 @@
 import React from "react";
-import { Button } from "antd";
+import { Button,message } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Quantity from "./Cart.Quantity";
 import { removeCart } from "../Services/removeCart.service";
 import NavBar from "./NavBar";
 const PresentItem = (props) => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = (message) => {
+    messageApi.open({
+      type: 'success',
+      content: message,
+      duration:5
+    });
+  };
   const Address = useSelector(
     (state) => state.authentication.loggedInUserAddress
   );
@@ -21,13 +29,14 @@ const PresentItem = (props) => {
   const removeHandler = async (id) => {
     const res = await removeCart(id);
     if (res.status === 200) {
-      alert("Item Removed Successfully");
+      success("Item Removed Successfully");
       props.setReload(!props.reload);
     }
     console.log(res);
   };
   return (
     <>
+    {contextHolder}
       <NavBar />
       <div className="cart-Item">
         <h1 className="prodHeader">Your Cart Items</h1>

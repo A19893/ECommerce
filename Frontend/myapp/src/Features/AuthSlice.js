@@ -36,8 +36,10 @@ export const AuthSlice = createSlice({
     selectAddress: (state, action) => {
        state.loggedInUserAddress = action.payload;
     },
-    setAddress:(state,action)=>{
-    
+    setReduxAddress:(state,action)=>{
+    state.loggedInUserAddress=action.payload.address;
+    state.loggedInUserState=action.payload.states;
+    state.loggedInUserCountry=action.payload.country
     }
   },
 });
@@ -46,6 +48,6 @@ export const {
   selectRole,
   removeAuthentication,
   selectAddress,
-  setAddress
+  setReduxAddress
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

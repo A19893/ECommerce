@@ -23,7 +23,12 @@ const ProfileModal = (props) => {
   const handleChange = ({ file: newFile, fileList: newFileList }) => {
     setFileList(newFileList);
     newFile.status === "done" &&
-      props.setImage(`http://localhost:5000/${newFile.response}`);
+    props.setImage(`http://localhost:5000/${newFile.response}`);
+  };
+  const handleBusinessImage = ({ file: newFile, fileList: newFileList }) => {
+    setFileList(newFileList);
+    newFile.status === "done" &&
+      props.setLogo(`http://localhost:5000/${newFile.response}`);
   };
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState("horizontal");
@@ -45,7 +50,7 @@ const ProfileModal = (props) => {
       : null;
   return (
     <Modal
-      width={700}
+      width={800}
       title="Your Profile"
       open={isModalOpen}
       onOk={handleOk}
@@ -79,11 +84,11 @@ const ProfileModal = (props) => {
             </div>
             {userRole === "Vendor" ? (
               <div className="upload-img">
-                {props.image === "Avatar" ? (
+                {props.logo === "Business" ? (
                   <img src={dummy} alt="Missing" className="avatar" />
                 ) : (
                   <img
-                    src={props.companyLogo}
+                    src={props.logo}
                     alt="Missing"
                     className="avatar"
                   />
@@ -95,7 +100,7 @@ const ProfileModal = (props) => {
                   //   listType="picture-circle"
                   fileList={fileList}
                   showUploadList={false}
-                  onChange={handleChange}
+                  onChange={handleBusinessImage}
                   name="image"
                 >
                   {/* {fileList.length >= 1 ? null : props.uploadButton} */}
@@ -257,6 +262,31 @@ const ProfileModal = (props) => {
                 onChange={(e) => props.setEmail(e.target.value)}
               />
             </Form.Item>
+            <Form.Item label="Password">
+              <Input
+                placeholder="Enter Password"
+                value={props.password}
+                onChange={(e) => props.setPassword(e.target.value)}
+              />
+            </Form.Item>
+            {userRole==='Vendor'&&
+            <>
+            <Form.Item label="Comapny Name">
+              <Input
+                placeholder="Enter Company Name"
+                value={props.companyName}
+                onChange={(e) => props.setCompanyName(e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item label="Company Details">
+            <Input
+              placeholder="Enter Company Details"
+              value={props.companyDetails}
+              onChange={(e) => props.setcompanyDetails(e.target.value)}
+            />
+          </Form.Item>
+          </>
+          }
             <Form.Item label="Password">
               <Input
                 placeholder="Enter Password"

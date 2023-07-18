@@ -5,24 +5,20 @@ import { PlusOutlined } from "@ant-design/icons";
 import { updateUser } from "../Services/updateUserDetails.service";
 import { useNavigate } from "react-router-dom";
 import ProfileModal from "./ProfileModal";
+import {message} from 'antd';
 const Profile = () => {
   const userId = useSelector((state) => state.authentication.loggedinUserId);
   const [user, setUser] = useState(null);
   const [image, setImage] = useState(null);
+  const[logo,setLogo]=useState(null);
   const [name, setName] = useState(null);
   const [address, setAddress] = useState(null);
   const [password, setPassword] = useState(null);
   const [email, setEmail] = useState(null);
+  const[companyName,setCompanyName]=useState(null);
+  const[companyDetails,setcompanyDetails]=useState(null);
+  const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
-  let urls = null;
-  // {user?.avatar==='avatar'?urls='https://img.freepik.com/free-icon/user_318-159711.jpg':urls=user?.avatar};
-  // console.log('------urls--',urls);
-  // const [fileList, setFileList] = useState([]);
-  // const handleChange = ({ file: newFile, fileList: newFileList }) => {
-  //   setFileList(newFileList);
-  //   newFile.status === "done" &&
-  //     setImage(`http://localhost:5000/${newFile.response}`);
-  // };
   useEffect(() => {
     const getData = async () => {
       const response = await getSpecificUser(userId);
@@ -32,9 +28,20 @@ const Profile = () => {
       setPassword(response.data.result.password);
       setUser(response.data.result);
       setImage(response.data.result.avatar);
+      setLogo(response.data.result.companyLogo);
+      setCompanyName(response.data.result.companyName);
+      setcompanyDetails(response.data.result.companyDetails);
     };
     getData();
   }, []);
+  console.log('--logo---',logo);
+  const success = (message) => {
+      messageApi.open({
+        type: 'success',
+        content: message,
+        duration:5
+      });
+    };
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -48,22 +55,19 @@ const Profile = () => {
     </div>
   );
   const handleUpdate = async () => {
-    console.log("----data---", name, address, password, email);
-    const res = await updateUser(userId, name, address, password, email, image);
+    // console.log("----data---", name, address, password, email);
+    const res = await updateUser(userId, name, address, password, email, image,logo,companyName,companyDetails);
     if (res.status === 200) {
-      alert("Updated Successfully");
-      navigate("/home");
+      success("Updated Successfully");
+      setTimeout(()=>{
+        navigate("/home");
+      },500);
     }
   };
-  useEffect(() => {
-    const getData = async () => {
-      const data = await getSpecificUser(userId);
-      console.log(data);
-    };
-    getData();
-  });
-  console.log("-image---", image);
+  // console.log("-image---", image);
   return (
+    <>
+    {contextHolder}
     <ProfileModal
       uploadButton={uploadButton}
       name={name}
@@ -78,7 +82,14 @@ const Profile = () => {
       setEmail={setEmail}
       password={password}
       setPassword={setPassword}
+      logo={logo}
+      setLogo={setLogo}
+      companyName={companyName}
+      setCompanyName={setCompanyName}
+      setcompanyDetails={setcompanyDetails}
+      companyDetails={companyDetails}
     />
+    </>
   );
 };
 
