@@ -110,7 +110,7 @@ const SpecificOrder = () => {
             </div>
           </div>
           <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-            {state.orderStatus !== "Cancelled" ? (
+            {state.orderStatus !== "Cancelled" && state.orderStatus!=='Delivered'? (
               <Button
                 style={{
                   backgroundColor: "red",

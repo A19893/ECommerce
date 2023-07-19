@@ -22,30 +22,50 @@ const BuyNow = () => {
     (state) => state.authentication.loggedInUserName
   );
   const updateStock = async () => {
+    if(order){
     orderItems?.map(async (item) => {
       await updateProduct(item.Order._id, item.Order.Stock - item.Quantity);
     });
+  }
+  else{
+    navigate('/home')
+  }
   };
   const PurchaseCount = () => {
+    if(order){
     orderItems?.map(async (item) => {
       await updatePurchaseCount(item.Order._id, item.Order.PurchaseCount + 1);
     });
+  }
+  else{
+    navigate('/home')
+  }
   };
   const cancelHandler = async () => {
+    if(order){
     order?.map(async (item) => {
       const res = await removeSpecificOrder(item._id);
       console.log("----res---", res);
     });
     dispatch(removeOrder());
     navigate("/home");
+  }
+  else{
+    navigate('/home')
+  }
   };
   const proceedHandler = async () => {
+    if(order){
     updateStock();
     PurchaseCount();
     await removeCartItems(orderItems);
     dispatch(removeReduxCart());
     dispatch(removeOrder());
     navigate("/confirm");
+    }
+    else{
+      navigate('/home')
+    }
   };
   const date = new Date();
   const monthNames = [
@@ -101,7 +121,7 @@ const BuyNow = () => {
                 marginTop: "20px",
               }}
             >
-              Order will be delivered at {order[0]?.shippingInfo?.address}
+              Order will be delivered at {order[0]?.shippingInfo?.address??"Dummy Address"}
             </span>
           </div>
           <div className="order-summary">

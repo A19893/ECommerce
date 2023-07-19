@@ -249,7 +249,7 @@ const UpdateProduct = () => {
                   placeholder="Stock"
                   type="number"
                   style={{ width: "220px" }}
-                  onChange={(e) => setStock(e.target.value)}
+                  onChange={(e) => e.target.value>0 && setStock(e.target.value)}
                 />
               </Form.Item>
               <Form.Item

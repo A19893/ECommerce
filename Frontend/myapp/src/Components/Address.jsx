@@ -116,20 +116,20 @@ const Address = () => {
           <label htmlFor="pincode">Pincode:</label>
           <input
             style={{ padding: "15px" }}
-            type="text"
+            type="number"
             id="pincode"
             value={pincode}
-            onChange={(e) => setPincode(e.target.value)}
+            onChange={(e) =>e.target.value.length<=7 && setPincode(e.target.value)}
             required
           />
 
           <label htmlFor="phoneNumber">Phone Number:</label>
           <input
             style={{ padding: "15px" }}
-            type="tel"
+            type="number"
             id="phoneNumber"
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={(e) => e.target.value.length<=10 && setPhoneNumber(e.target.value)}
             required
           />
 

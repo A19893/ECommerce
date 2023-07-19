@@ -42,6 +42,13 @@ const Profile = () => {
         duration:5
       });
     };
+    const warning = (message) => {
+      messageApi.open({
+        type: 'warning',
+        content: message,
+        duration:5
+      });
+    };
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -56,6 +63,11 @@ const Profile = () => {
   );
   const handleUpdate = async () => {
     // console.log("----data---", name, address, password, email);
+    if(name?.trim()===""||address?.trim()===""||password?.trim()===""||email?.trim()===""||companyName?.trim()===""||companyDetails?.trim()===""){
+     warning("Fill details properly!!");
+     return;
+    }
+    else{
     const res = await updateUser(userId, name, address, password, email, image,logo,companyName,companyDetails);
     if (res.status === 200) {
       success("Updated Successfully");
@@ -63,6 +75,7 @@ const Profile = () => {
         navigate("/home");
       },500);
     }
+  }
   };
   // console.log("-image---", image);
   return (

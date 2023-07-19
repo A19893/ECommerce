@@ -26,7 +26,7 @@ const LoginDisplay = (props) => {
                 }}
                 placeholder="    Email/Phone Number"
                 prefix={<MailOutlined />}
-                onChange={(e) => props.setEmail(e.target.value)}
+                onChange={(e) => props.setEmail(e.target.value.trim())}
                 value={props.email}
               />
               <br />
@@ -40,7 +40,7 @@ const LoginDisplay = (props) => {
                 }}
                 placeholder="   Password"
                 prefix={<LockOutlined />}
-                onChange={(e) => props.setPassword(e.target.value)}
+                onChange={(e) => props.setPassword(e.target.value.trim())}
                 value={props.password}
               />
               <br />

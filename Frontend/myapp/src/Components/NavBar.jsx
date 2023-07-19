@@ -102,7 +102,7 @@ const NavBar = (props) => {
         </div>
       )}
 
-      {location.pathname !== "/profile" && (
+      {location.pathname !== "/profile" && userRole!=='Admin'&& (
         <div className="profile">
           <Button
             icon={<ProfileOutlined />}
@@ -134,7 +134,7 @@ const NavBar = (props) => {
           Orders
         </Button>
       </div>
-      <div className="category">
+      {location.pathname==='/home'&&<div className="category">
         <Select
           style={{ width: "150px", padding: "5px" }}
           showSearch
@@ -168,12 +168,12 @@ const NavBar = (props) => {
             },
           ]}
         />
-      </div>
+      </div>}
      {userRole!=='Admin' &&<div className="logoutButton" onClick={()=>navigate('/chat')}>
         <HeadsetMicIcon/>
       </div>}
       {
-        userRole==='Admin' && <div className="myOrders"> <Button
+        userRole==='Admin' && <div className="myChats"> <Button
         icon={<HeadsetMicIcon />}
         style={{ height: "40px", fontSize: "20px", fontWeight: "600" }}
         onClick={()=>navigate('/viewChats')}

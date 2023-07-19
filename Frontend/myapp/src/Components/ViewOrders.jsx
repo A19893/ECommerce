@@ -79,7 +79,7 @@ const ViewOrders = () => {
       key: "_id",
       render: (text) => (
         <>
-          <span
+         {text.orderStatus!=='Cancelled'&&<span
             style={{
               color: "blue",
               cursor: "pointer",
@@ -89,8 +89,7 @@ const ViewOrders = () => {
             onClick={() => navigate("/updateOrder", { state: text })}
           >
             Update
-          </span>
-          {/* <span style={{color:'red',cursor:'pointer',fontSize:'20px'}} onClick={()=>alertDelete(text._id)}>Delete</span> */}
+          </span>}
         </>
       ),
     },
@@ -107,7 +106,8 @@ const ViewOrders = () => {
       <Table columns={columns} dataSource={myOrders} />
       <h4>Total Orders-{myOrders?.length}</h4>
       {myOrders?.map((item) => {
-        TotalEarnings += item.order.price + item.shippingPrice + item.taxPrice;
+        if(item.orderStatus!=='Cancelled')
+        TotalEarnings += item.subTotal + item.shippingPrice + item.taxPrice;
       })}
       <h4>Total Earnings- ₹{TotalEarnings}</h4>
     </Modal>

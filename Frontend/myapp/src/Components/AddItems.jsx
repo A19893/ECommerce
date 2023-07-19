@@ -3,6 +3,7 @@ import { addProducts } from "../Services/createProduct.service";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button, Select, message } from "antd";
+import CircularProgress from "@mui/material/CircularProgress";
 const AddItems = (image) => {
   const CreatedBy = useSelector((state) => state.authentication.loggedinUserId);
   const { TextArea } = Input;
@@ -11,8 +12,16 @@ const AddItems = (image) => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [Stock, setStock] = useState("");
+  const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
+  const warning = (message) => {
+    messageApi.open({
+      type: "warning",
+      content: message,
+      duration: 5,
+    });
+  };
   const error = () => {
     messageApi.open({
       type: "error",
@@ -20,26 +29,27 @@ const AddItems = (image) => {
       duration: 5,
     });
   };
-  const success = () => {
+  const success = (message) => {
     messageApi.open({
       type: "success",
-      content: "Please Upload minimum 4 images",
+      content: message,
       duration: 5,
     });
   };
   const addProduct = async () => {
-    console.log("--length--", image.image?.length);
     if (
-      name === "" ||
-      description === "" ||
+      name?.trim() === "" ||
+      description?.trim() === "" ||
       price === "" ||
       category === "" ||
       Stock === ""
     ) {
+      warning("Fields can't be empty")
       return;
     } else if (image?.image.length < 3) {
       error();
     } else {
+      setLoading(true);
       let Status = "Publish";
       const response = await addProducts(
         name,
@@ -53,18 +63,22 @@ const AddItems = (image) => {
       );
       if (response.status === 201) {
         success("Item Added Successfully");
-        navigate("/home");
+        setLoading(false);
+        setTimeout(()=>{
+          navigate("/home");
+        },300);
       }
     }
   };
   const draftProduct = async () => {
     if (
-      name === "" ||
-      description === "" ||
-      price === "" ||
-      category === "" ||
-      Stock === ""
+      name.trim() === "" ||
+      description.trim() === "" ||
+      price.trim() === "" ||
+      category.trim() === "" ||
+      Stock.trim() === ""
     ) {
+      warning("Fields can't be empty")
       return;
     }
     let Status = "Draft";
@@ -205,17 +219,27 @@ const AddItems = (image) => {
             onChange={(e) => setPrice(e.target.value)}
           />
         </Form.Item>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{ textAlign: "center", margin: "auto", display: "table" }}
-            onClick={() => addProduct()}
-          >
-            Add Product
-          </Button>
-        </Form.Item>
-        <Form.Item>
+        {loading ? (
+          <div style={{display:'flex',justifyContent:'center',paddingBottom:'10px',marginRight:'100px'}}>
+           <CircularProgress  color="inherit" backgroundColor="blue"/>
+          </div>
+        ) : (
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ textAlign: "center", margin: "auto", display: "table" }}
+              onClick={() => addProduct()}
+            >
+              Add Product
+            </Button>
+          </Form.Item>
+        )}
+        {loading ? (
+          <div style={{display:'flex',justifyContent:'center',paddingBottom:'10px',marginRight:'100px'}}>
+           <CircularProgress  color="inherit"/>
+          </div>
+        ) :<Form.Item>
           <Button
             type="primary"
             htmlType="submit"
@@ -229,7 +253,7 @@ const AddItems = (image) => {
           >
             Draft Product
           </Button>
-        </Form.Item>
+        </Form.Item>}
       </Form>
     </>
   );

@@ -6,13 +6,14 @@ import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import BackspaceIcon from '@mui/icons-material/Backspace';
 import Message from './Message';
 import OwnerMessage from './OwnerMessage';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 const ChatRoom = () => {
   const admin='64b4506837b3fc81c74803a8';
   const {state}=useLocation();
+  const navigate=useNavigate();
   const userRole=useSelector((state)=>state.authentication.loggedInUserRole);
   const userId=useSelector((state)=>state.authentication.loggedinUserId);
   const userName=useSelector((state)=>state.authentication.loggedInUserName);
@@ -58,9 +59,9 @@ const ChatRoom = () => {
           </h3>
           </div>
           <div>
-            <VideoCallIcon fontSize="large" className="videoicon" />
-            <PersonAddAlt1Icon fontSize="large" className="videoicon" />
-            <MoreHorizIcon fontSize="large" className="videoicon" />
+            <VideoCallIcon fontSize="large" className="videoicon" style={{cursor:'pointer'}}/>
+            <PersonAddAlt1Icon fontSize="large" className="videoicon" style={{cursor:'pointer'}} />
+            <BackspaceIcon fontSize="large" className="videoicon" style={{cursor:'pointer'}} onClick={()=>userRole==='Admin'?navigate('/viewChats'):navigate('/home')}/>
           </div>
         </div>
             <div className="chatBox">

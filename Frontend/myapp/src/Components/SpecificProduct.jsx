@@ -61,9 +61,9 @@ const SpecificProduct = () => {
 
   const couponHandler = (e) => {
     console.log(e.target.value);
-    (setProductData(p=>({...p,price:(p?.price-500)})))
     if (couponCode === "BOGO500") {
       setCoupon(true);
+      (setProductData(p=>({...p,price:(p?.price-500)})))
     } else {
       alert("Coupon Code not Valid!!");
     }

@@ -18,13 +18,6 @@ const Signup = () => {
   const [numberError, setNumberError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
-  // const success = (message) => {
-  //   messageApi.open({
-  //     type: 'success',
-  //     content: message,
-  //     duration:5
-  //   });
-  // };
   const error = (message) => {
     messageApi.open({
       type: "error",
@@ -46,7 +39,7 @@ const Signup = () => {
       setNumberError("Max Length 10 are allowed");
     } else if (!isNaN(e.target.value)) {
       setNumber("");
-      setNumber(e.target.value);
+      setNumber(e.target.value.trim());
     } else {
     }
   };
@@ -59,7 +52,7 @@ const Signup = () => {
       warning(
         "Password should be greater than 6 characters and less than 9 characters!!"
       );
-    } else if (emailError !== "Valid Email :)") {
+    } else if (emailError !== "Valid Email :)"||email==="") {
       warning("Please fill email properly!!");
     } else {
       const res = await manualSignup(name, password, email, number);
@@ -140,6 +133,8 @@ const Signup = () => {
       }
     } catch (err) {
       console.log(err);
+      const msg="Error (auth/cancelled-popup-request)/(auth/pop close by user)"
+      warning(msg);
     }
   };
   return (

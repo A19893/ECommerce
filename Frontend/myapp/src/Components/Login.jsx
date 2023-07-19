@@ -8,11 +8,20 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../Config/Firebase";
 import { checkUser } from "../Services/checkBeforeLogin.service";
 import { manualSignup } from "../Services/manualSignup.service";
+import { message } from "antd";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [messageApi, contextHolder] = message.useMessage();
+  const warning = (message) => {
+    messageApi.open({
+      type: "warning",
+      content: message,
+      duration: 5,
+    });
+  };
   //This Function will help to login user with email and password
   const onManualLogin = async (e) => {
     e.preventDefault();
@@ -98,14 +107,13 @@ const Login = () => {
         }
       }
     } catch (err) {
-      console.log(err);
-      // if(err.response.status===302){
-      //   alert("Kaam kar rha hai")
-      // }
-      console.log(err);
+      const msg="Error (auth/cancelled-popup-request)/(auth/pop close by user)"
+      warning(msg);
     }
   };
   return (
+    <>
+    {contextHolder}
     <LoginDisplay
       signInGoogle={signInGoogle}
       onManualLogin={onManualLogin}
@@ -114,6 +122,7 @@ const Login = () => {
       setPassword={setPassword}
       setEmail={setEmail}
     />
+    </>
   );
 };
 

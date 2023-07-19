@@ -68,7 +68,7 @@ const ViewChats = () => {
   return (
     <Modal
     width={900}
-    title="Your Orders"
+    title="Chat Room"
     open={isModalOpen}
     onOk={handleOk}
     onCancel={handleCancel}

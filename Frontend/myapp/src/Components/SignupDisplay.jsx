@@ -20,7 +20,7 @@ const SignupDisplay = (props) => {
     }
   };
   const handleChange = (e) => {
-    props.setEmail(e.target.value);
+    props.setEmail(e.target.value.trim());
     validateEmail(e);
   };
   return (
@@ -44,7 +44,7 @@ const SignupDisplay = (props) => {
                 maxLength={15}
                 placeholder="   Username"
                 prefix={<UserOutlined />}
-                onChange={(e) => props.setName(e.target.value)}
+                onChange={(e) => props.setName(e.target.value.trim())}
                 value={props.name}
               />
               <br />
@@ -63,7 +63,7 @@ const SignupDisplay = (props) => {
                 value={props.email}
               />
               <span style={{ fontWeight: "bold", color: "red" }}>
-                {props.emailError}
+                {props?.emailError}
               </span>
               <br />
               <br />
@@ -77,12 +77,12 @@ const SignupDisplay = (props) => {
                 type="text"
                 placeholder="    Phone Number"
                 prefix={<PhoneFilled />}
-                onChange={props.handleInputChange}
-                value={props.number}
+                onChange={props?.handleInputChange}
+                value={props?.number}
                 required
               />
               <span style={{ fontWeight: "bold", color: "red" }}>
-                {props.numberError}
+                {props?.numberError}
               </span>
               <br />
               <br />
@@ -93,9 +93,9 @@ const SignupDisplay = (props) => {
                   boxShadow: " 0 10px 10px -5px rgba(0, 0, 0, 0.4)",
                   padding: "15px",
                 }}
-                placeholder="   Password"
+                placeholder="   Password" 
                 prefix={<LockOutlined />}
-                onChange={(e) => props.setPassword(e.target.value)}
+                onChange={(e) => props.setPassword(e.target.value.trim())}
                 value={props.password}
                 required
               />
@@ -124,7 +124,7 @@ const SignupDisplay = (props) => {
                     marginLeft: "140px",
                     height: "40px",
                   }}
-                  onClick={props.signInGoogle}
+                  onClick={props?.signInGoogle}
                 >
                   Sign In with Google
                 </Button>

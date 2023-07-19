@@ -3,6 +3,7 @@ import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload, Modal } from "antd";
 import AddItems from "./AddItems";
 import { useNavigate } from "react-router-dom";
+
 const UploadProducts = () => {
   const [image, setImage] = useState([]);
   const [fileList, setFileList] = useState([]);
@@ -52,7 +53,7 @@ const UploadProducts = () => {
           showUploadList={{
             showPreviewIcon: false,
             showDownloadIcon: false,
-            showRemoveIcon: false,
+            showRemoveIcon: true,
           }}
         >
           {fileList.length >= 4 ? null : uploadButton}

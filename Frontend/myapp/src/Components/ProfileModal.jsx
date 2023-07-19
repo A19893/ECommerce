@@ -287,13 +287,6 @@ const ProfileModal = (props) => {
           </Form.Item>
           </>
           }
-            <Form.Item label="Password">
-              <Input
-                placeholder="Enter Password"
-                value={props.password}
-                onChange={(e) => props.setPassword(e.target.value)}
-              />
-            </Form.Item>
             <Form.Item>
               <Button
                 type="primary"
