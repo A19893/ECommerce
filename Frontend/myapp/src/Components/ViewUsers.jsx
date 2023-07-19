@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Modal, Table } from "antd";
+import { Modal, Table,message } from "antd";
 import { updateStatus } from "../Services/updateUserStatus.service";
 import { getAllUsers } from "../Services/getAllUser.service";
 const ViewUsers = () => {
   const [myUsers, setMyUsers] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
-
+  const [messageApi, contextHolder] = message.useMessage();
+  const[reload,setReload]=useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
@@ -15,7 +16,7 @@ const ViewUsers = () => {
       setMyUsers(response.data.result);
     };
     getData();
-  }, []);
+  }, [reload]);
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -23,11 +24,21 @@ const ViewUsers = () => {
     setIsModalOpen(false);
     navigate("/dashBoard");
   };
+  const success = (message) => {
+    messageApi.open({
+      type: "success",
+      content: message,
+      duration: 5,
+    });
+  };
   const handleUpdate = async (item, status) => {
     const response = await updateStatus(item._id, status);
     if (response.status === 200) {
-      alert("User Status Updated Successfully");
-      navigate("/viewUsers");
+      success("User Status Updated Successfully");
+      setReload(!reload);
+      setTimeout(()=>{
+        navigate("/viewUsers");
+      },500);
     }
   };
   const columns = [
@@ -100,7 +111,9 @@ const ViewUsers = () => {
     },
   ];
   return (
-    <Modal
+    <>
+    {contextHolder}
+        <Modal
       width={900}
       title="Users List"
       open={isModalOpen}
@@ -110,6 +123,7 @@ const ViewUsers = () => {
     >
       <Table columns={columns} dataSource={myUsers} />
     </Modal>
+    </>
   );
 };
 

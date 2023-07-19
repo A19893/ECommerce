@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getVendorProduct } from "../Services/getVendorProduct.service";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Modal, Table } from "antd";
+import { Modal, Table,message } from "antd";
 import { deleteProduct } from "../Services/deleteProduct.service";
 import { getAllProducts } from "../Services/getAllProducts.service";
 const ViewProducts = () => {
@@ -12,6 +12,8 @@ const ViewProducts = () => {
   );
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [products, setProducts] = useState("");
+  const [messageApi, contextHolder] = message.useMessage();
+  const [reload,setReloaad]=useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
@@ -22,7 +24,7 @@ const ViewProducts = () => {
       setProducts(res.data.result);
     };
     getData();
-  }, []);
+  }, [reload]);
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -34,9 +36,29 @@ const ViewProducts = () => {
     const response = await deleteProduct(id);
     console.log(response);
     if (response.status === 200) {
-      alert("Item Deleted Successfully");
-      navigate("/dashBoard");
+      success("Item Deleted Successfully");
+      setReloaad(!reload);
+      setTimeout(()=>{
+        navigate("/dashBoard");
+      },500);
     }
+    else if(response.status===203){
+      error("Item Not Present!!");
+    }
+  };
+  const success = (message) => {
+    messageApi.open({
+      type: "success",
+      content: message,
+      duration: 5,
+    });
+  };
+  const error = (message) => {
+    messageApi.open({
+      type: "error",
+      content: message,
+      duration: 5,
+    });
   };
   const columns = [
     {
@@ -105,9 +127,11 @@ const ViewProducts = () => {
       ),
     },
   ];
-  return (
-    <Modal
-      width={900}
+  return (   
+  <>
+  {contextHolder}
+  <Modal
+      width={1000}
       title="Your Products"
       open={isModalOpen}
       onOk={handleOk}
@@ -116,6 +140,7 @@ const ViewProducts = () => {
     >
       <Table columns={columns} dataSource={products} />
     </Modal>
+    </>
   );
 };
 

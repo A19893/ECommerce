@@ -53,7 +53,7 @@ const UploadProducts = () => {
           showUploadList={{
             showPreviewIcon: false,
             showDownloadIcon: false,
-            showRemoveIcon: true,
+            showRemoveIcon: false,
           }}
         >
           {fileList.length >= 4 ? null : uploadButton}

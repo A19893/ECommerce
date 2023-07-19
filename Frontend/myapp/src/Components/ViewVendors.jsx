@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getAllVendors } from "../Services/getAllVendors.service";
 import { useNavigate } from "react-router-dom";
-import { Modal, Table } from "antd";
+import { Modal, Table,message } from "antd";
 import { updateStatus } from "../Services/updateUserStatus.service";
 const ViewVendors = () => {
   const [myUsers, setMyUsers] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [messageApi, contextHolder] = message.useMessage();
+  const[reload,setReload]=useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
@@ -14,7 +16,7 @@ const ViewVendors = () => {
       setMyUsers(response.data.result);
     };
     getData();
-  }, []);
+  }, [reload]);
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -25,9 +27,19 @@ const ViewVendors = () => {
   const handleUpdate = async (item, status) => {
     const response = await updateStatus(item._id, status);
     if (response.status === 200) {
-      alert("User Status Updated Successfully");
-      navigate("/viewVendors");
+      setReload(!reload)
+      success("User Status Updated Successfully");
+      setTimeout(()=>{
+        navigate("/viewVendors");
+      },500);
     }
+  };
+  const success = (message) => {
+    messageApi.open({
+      type: "success",
+      content: message,
+      duration: 5,
+    });
   };
   const columns = [
     {
@@ -99,6 +111,8 @@ const ViewVendors = () => {
     },
   ];
   return (
+    <>
+    {contextHolder}
     <Modal
       width={900}
       title="Vendors List"
@@ -109,6 +123,7 @@ const ViewVendors = () => {
     >
       <Table columns={columns} dataSource={myUsers} />
     </Modal>
+    </>
   );
 };
 

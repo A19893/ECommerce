@@ -41,7 +41,7 @@ const Profile = () => {
         content: message,
         duration:5
       });
-    };
+    };                
     const warning = (message) => {
       messageApi.open({
         type: 'warning',
@@ -63,9 +63,30 @@ const Profile = () => {
   );
   const handleUpdate = async () => {
     // console.log("----data---", name, address, password, email);
-    if(name?.trim()===""||address?.trim()===""||password?.trim()===""||email?.trim()===""||companyName?.trim()===""||companyDetails?.trim()===""){
-     warning("Fill details properly!!");
-     return;
+    console.log('--details',companyDetails?.trim());
+    if(name?.trim()===""){
+      warning("Please fill name properly!!");
+      return;
+    }
+    else if(address?.trim()===""){
+      warning("Please fill address properly!!");
+      return;
+    }
+   else if(password?.trim()===""){
+      warning("Please fill password properly!!");
+      return;
+    }
+    else if(email?.trim()===""){
+      warning("Please fill email properly!!");
+      return;
+    }
+    else if(companyName?.trim()===""){
+      warning("Please fill compny Name properly!!");
+      return;
+    }
+    else if(companyDetails?.trim()===""){
+      warning("Please fill company Details properly!!");
+      return;
     }
     else{
     const res = await updateUser(userId, name, address, password, email, image,logo,companyName,companyDetails);
@@ -75,7 +96,7 @@ const Profile = () => {
         navigate("/home");
       },500);
     }
-  }
+  } 
   };
   // console.log("-image---", image);
   return (

@@ -3,14 +3,23 @@ const objId=require("mongodb").ObjectId
 //Register a User
 exports.registerUser=async(req,res)=>{
     console.log("Req",req.body);
-await User.findOne({email:req.body.email}).then(async(result)=>{
+await User.findOne({$or:[{email:req.body.email},{number:req.body.number}] }).then(async(result)=>{
     console.log("result mila",result);
     if(result){
-        return  res.status(203).json({
+        if(result.email===req.body.email){
+            return  res.status(203).json({
+                success:false,
+                message:"Email already exists",
+                result
+             });
+        }
+        else{
+        return  res.status(202).json({
             success:false,
-            message:"Username already exists",
+            message:"Phone number already exists",
             result
          });
+        }
     }
     else{
         const creation=await User.create(req.body);

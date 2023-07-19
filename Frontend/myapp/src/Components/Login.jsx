@@ -22,17 +22,25 @@ const Login = () => {
       duration: 5,
     });
   };
+
+  const error = (message) => {
+    messageApi.open({
+      type: "error",
+      content: message,
+      duration: 5,
+    });
+  };
   //This Function will help to login user with email and password
   const onManualLogin = async (e) => {
     e.preventDefault();
     if (password.length <= 6) {
-      alert("Please Fill Password Properly");
+      warning("Please Fill Password Properly");
     } else {
       const res = await manualLogin(password, email);
       console.log(res);
       if (res.status === 201) {
         if (res.data.result.status === "Deactivate") {
-          alert(
+          warning(
             "You dont have access to our website. Please Contact our Support Team"
           );
         } else {
@@ -52,9 +60,9 @@ const Login = () => {
           navigate("/home");
         }
       } else if (res.status === 200) {
-        alert("You are Not a Registered User");
+        error("You are Not a Registered User");
       } else if (res.status === 203) {
-        alert("Credentials are InValid");
+        error("Credentials are InValid");
       }
     }
   };
@@ -90,7 +98,7 @@ const Login = () => {
       } else if (result.status === 201) {
         const data = result.data;
         if (data.result.status === "Deactivate") {
-          alert(
+          warning(
             "You dont have access to our website. Please Contact our Support Team"
           );
         } else {

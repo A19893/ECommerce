@@ -65,7 +65,12 @@ const SpecificProduct = () => {
       setCoupon(true);
       (setProductData(p=>({...p,price:(p?.price-500)})))
     } else {
-      alert("Coupon Code not Valid!!");
+      if(couponCode!==""){
+      warning("Coupon Code not Valid!!");
+      }
+      else{
+        warning("Please enter coupon code!!");
+      }
     }
   };
   const addToCartHandler = async () => {
@@ -115,7 +120,7 @@ const SpecificProduct = () => {
               <div>
                 <Rate allowHalf disabled value={ProductData?.ratings} />
               </div>
-              <span>{`(${ProductData?.ReviewsCount}Reviews)`}</span>
+              {/* <span>{`(${ProductData?.ReviewsCount}Reviews)`}</span> */}
             </div>
             <div className="detailsBlock-3">
               <h1>
@@ -154,6 +159,9 @@ const SpecificProduct = () => {
               <input
                 type="text"
                 className="coupon"
+                disabled={
+                  coupon?true:false
+                }
                 onChange={(e) => setCouponCode(e.target.value)}
               />
               &nbsp;&nbsp;

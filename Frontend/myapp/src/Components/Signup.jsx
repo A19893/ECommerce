@@ -69,14 +69,17 @@ const Signup = () => {
           })
         );
         // success("You are registered successfully!!");
-        navigate("/role");
-      } else if (res.status === 203) {
-        error("You are already a Registered User!!");
-        // navigate("/login");
-      }
-      setName("");
+        setName("");
       setPassword("");
       setEmail("");
+        navigate("/role");
+      } else if (res.status === 203) {
+        error("Email already exists");
+        // navigate("/login");
+      }
+      else if(res.status===202){
+        error("Phone Number already exists!!");
+      }
     }
   };
 
@@ -112,7 +115,7 @@ const Signup = () => {
       } else if (result.status === 201) {
         const data = result.data;
         if (data.result.status === "Deactivate") {
-          alert(
+          warning(
             "You dont have access to our website. Please Contact our Support Team"
           );
         } else {

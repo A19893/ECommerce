@@ -102,7 +102,7 @@ const NavBar = (props) => {
         </div>
       )}
 
-      {location.pathname !== "/profile" && userRole!=='Admin'&& (
+      {location.pathname !== "/profile" && (
         <div className="profile">
           <Button
             icon={<ProfileOutlined />}

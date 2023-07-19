@@ -37,6 +37,7 @@ export const AuthSlice = createSlice({
        state.loggedInUserAddress = action.payload;
     },
     setReduxAddress:(state,action)=>{
+      console.log(action);
     state.loggedInUserAddress=action.payload.address;
     state.loggedInUserState=action.payload.states;
     state.loggedInUserCountry=action.payload.country

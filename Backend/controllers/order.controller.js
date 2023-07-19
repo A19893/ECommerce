@@ -84,10 +84,18 @@ exports.deleteOrder=async(req,res)=>{
     console.log('---remobve id',req.params.id);
     const order=await Order.findByIdAndRemove(req.params.id);
     console.log('-----removee----',order);
+    if(order){
     return res.status(200).json({
         success:true,
         message:"Order Deleted"
     })
+}
+else{
+    return res.status(203).json({
+        success:true,
+        message:"Order Deleted"
+    })
+}
 }
 exports.getVendorOrder=async(req,res)=>{
     // console.log(req.params.id);

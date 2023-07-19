@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Button } from "antd";
+import { Button,message } from "antd";
 import { useNavigate } from "react-router-dom";
 import OrderTrack from "./OrderTrack";
 import { getDateDifference } from "./DateDifference";
@@ -9,19 +9,36 @@ const SpecificOrder = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   console.log("-----state----", state);
+  const [messageApi, contextHolder] = message.useMessage();
   const TotalPrice = state.shippingPrice + state.subTotal + state.taxPrice;
+  const success = (message) => {
+    messageApi.open({
+      type: "success",
+      content: message,
+      duration: 5,
+    });
+  };
+  const warning = (message) => {
+    messageApi.open({
+      type: "success",
+      content: message,
+      duration: 5,
+    });
+  };
   const handleCancel = async () => {
     const Time = getDateDifference(state.createdAt);
     if (Time < 24) {
       const response = await updateOrder(state._id, "Cancelled");
       if (response.status === 200) {
-        alert("You order has been cancelled");
+        success("You order has been cancelled");
       }
     } else {
-      alert("You cannot cancel order as it has been more than 24 hours!!");
+      warning("You cannot cancel order as it has been more than 24 hours!!");
     }
   };
   return (
+    <>
+    {contextHolder}
     <div className="order-container">
       <div className="OrderPlaced">
         <div className="order-display">
@@ -137,6 +154,7 @@ const SpecificOrder = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

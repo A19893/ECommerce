@@ -231,7 +231,12 @@ const ProfileModal = (props) => {
             }}
             onValuesChange={onFormLayoutChange}
           >
-            <Form.Item label="Name">
+            <Form.Item label="Name" name="name" rules={[
+             { 
+              max:30,
+              message:"Maximum Limit reached"
+            }
+            ]}>
               <Input
                 placeholder="Enter Name"
                 value={props.name}
@@ -255,17 +260,23 @@ const ProfileModal = (props) => {
                 />
               </Form.Item>
             )}
-            <Form.Item label="Email">
+            <Form.Item label="Email" >
               <Input
                 placeholder="Enter Email"
+                name="email"
+                disabled={true}
                 value={props.email}
-                onChange={(e) => props.setEmail(e.target.value)}
+                // onChange={(e) => props.setEmail(e.target.value)}
               />
             </Form.Item>
-            <Form.Item label="Password">
+            <Form.Item label="Password"  rules={[
+             { max:9,
+              message:"Maximum Limit reached"}
+            ]}>
               <Input
                 placeholder="Enter Password"
                 value={props.password}
+                maxLength={9}
                 onChange={(e) => props.setPassword(e.target.value)}
               />
             </Form.Item>

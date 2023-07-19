@@ -24,6 +24,7 @@ const LoginDisplay = (props) => {
                   boxShadow: " 0 10px 10px -5px rgba(0, 0, 0, 0.4)",
                   padding: "15px",
                 }}
+                maxLength={30}
                 placeholder="    Email/Phone Number"
                 prefix={<MailOutlined />}
                 onChange={(e) => props.setEmail(e.target.value.trim())}
