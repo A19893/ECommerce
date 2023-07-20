@@ -231,7 +231,7 @@ const ProfileModal = (props) => {
             }}
             onValuesChange={onFormLayoutChange}
           >
-            <Form.Item label="Name" name="name" rules={[
+            <Form.Item label="Name"  rules={[
              { 
               max:30,
               message:"Maximum Limit reached"

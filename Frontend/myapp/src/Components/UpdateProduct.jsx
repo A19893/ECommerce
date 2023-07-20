@@ -63,7 +63,7 @@ const UpdateProduct = () => {
           Status
         );
         if (response.status === 200) {
-          error();
+          success();
           setTimeout(() => {
             navigate("/dashBoard");
           }, 500);
@@ -83,9 +83,10 @@ const UpdateProduct = () => {
       console.log(response);
       if (response.status === 200) {
         success();
+        // setLoading(false);
         setTimeout(() => {
           navigate("/dashBoard");
-        }, 1000);
+        }, 500);
       }
     }
   };
@@ -249,7 +250,9 @@ const UpdateProduct = () => {
                   placeholder="Stock"
                   type="number"
                   style={{ width: "220px" }}
-                  onChange={(e) => e.target.value>0 && setStock(e.target.value)}
+                  onChange={(e) =>
+                    e.target.value > 0 && setStock(e.target.value)
+                  }
                 />
               </Form.Item>
               <Form.Item

@@ -55,7 +55,7 @@ const Signup = () => {
     } else if (emailError !== "Valid Email :)"||email==="") {
       warning("Please fill email properly!!");
     } else {
-      const res = await manualSignup(name, password, email, number);
+      const res = await manualSignup(name, password, email, number===''?Date.now():number);
       console.log(res);
       if (res.status === 201) {
         dispatch(

@@ -52,10 +52,7 @@ const userSchema=new mongoose.Schema({
         required:true,
         default:'Country',
     },
-    number:{
-        type:String,
-        default:'Number'
-    },
+    number:{},
     companyName:{
         type:String,
         default:'Enter Company Name'

@@ -3,7 +3,7 @@ const objId=require("mongodb").ObjectId
 //Register a User
 exports.registerUser=async(req,res)=>{
     console.log("Req",req.body);
-await User.findOne({$or:[{email:req.body.email},{number:req.body.number}] }).then(async(result)=>{
+await User.findOne({$or:[{email:req.body.email},{number:req.body.number??"#"}] }).then(async(result)=>{
     console.log("result mila",result);
     if(result){
         if(result.email===req.body.email){
